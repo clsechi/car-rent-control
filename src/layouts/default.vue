@@ -65,9 +65,9 @@ export default {
     ]),
   },
 
-  created() {
-    this.getUser('jp@email.com');
-    this.getRecords('jp@email.com');
+  async created() {
+    await this.getUser('jp@email.com');
+    await this.getRecords('jp@email.com');
   },
 };
 </script>

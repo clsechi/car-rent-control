@@ -2,12 +2,13 @@
   <custom-card
     color="primary"
     description="Dias restantes:"
-    :value="`${7} dias`"
+    :value="`${date} dias`"
     icon="date_range"
   />
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import customCard from './customCard';
 
 export default {
@@ -15,6 +16,14 @@ export default {
 
   components: {
     'custom-card': customCard,
+  },
+
+  computed: {
+    ...mapGetters('user', ['status']),
+
+    date() {
+      return this.status.remainingDays;
+    },
   },
 };
 </script>

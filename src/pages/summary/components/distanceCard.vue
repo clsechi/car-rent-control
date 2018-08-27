@@ -2,12 +2,13 @@
   <custom-card
     color="info"
     description="Pode dirigir:"
-    :value="`${28578} km`"
+    :value="`${distance} km`"
     icon="fas fa-road"
   />
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import customCard from './customCard';
 
 export default {
@@ -15,6 +16,20 @@ export default {
 
   components: {
     'custom-card': customCard,
+  },
+
+  computed: {
+    ...mapGetters('user', [
+      'settings',
+      'status',
+    ]),
+
+    distance() {
+      // remainingDistance
+      const d = this.status.remainingDays * (this.settings.car.km.allowed / 7);
+      console.log(d);
+      return d;
+    },
   },
 };
 </script>

@@ -1,5 +1,12 @@
 export default {
   user: {
-    settings: '',
+    settings: {
+      car: {
+        km: {
+          actual: 0,
+        },
+      },
+    },
+    status: '',
   },
 };
