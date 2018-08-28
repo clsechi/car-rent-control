@@ -2,7 +2,7 @@
   <custom-card
     color="primary"
     description="Dias restantes:"
-    :value="`${date} dias`"
+    :value="date ? `${date} dias` : '--'"
     icon="date_range"
   />
 </template>
@@ -19,10 +19,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['status']),
+    ...mapGetters('user', ['current']),
 
     date() {
-      return this.status.remainingDays;
+      return this.current.remainingDays;
     },
   },
 };

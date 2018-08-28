@@ -10,6 +10,6 @@ export const updateSettings = async ({ commit }, { payload, userId }) => {
 export const getUser = async ({ commit }, userId) => {
   const snapshot = await Vue.prototype.$firestore.collection('users').doc(userId).get();
   const result = snapshot.data();
-  result.status.remainingDays = 8 - date.formatDate(new Date(), 'E');
+  result.current.remainingDays = 8 - date.formatDate(new Date(), 'E');
   commit('setUser', result);
 };

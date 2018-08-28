@@ -69,9 +69,10 @@ module.exports = function (ctx) {
         'QTabPane',
         'QRouteTab',
         'QDatetime',
+        'QPopover',
       ],
       directives: [
-        'Ripple'
+        'Ripple',
       ],
       // Quasar plugins
       plugins: [

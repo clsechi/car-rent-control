@@ -6,7 +6,7 @@
         v-for="record in records"
         :key="record.id"
       >
-        <q-card color="grey-7">
+        <q-card color="tertiary">
           <q-card-main>
             <div class="row">
               <div class="col-xs-6 col-md-8 flex">
@@ -25,31 +25,44 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xs-4 col-md-2 flex flex-center">
+              <div class="col-xs-5 col-md-2 flex flex-center">
                 <div class="text-center q-subheading">
                   <div>{{ formatDate(record.date) }}</div>
                   <hr>
                   <div>{{ record.date.getFullYear() }}</div>
                 </div>
               </div>
-              <div class="col-2 flex justify-end items-center">
+              <div class="col-1 flex">
                 <div>
                   <q-btn
                     round
-                    class="q-ma-xs"
-                    icon="edit"
-                    color="primary"
-                    @click="$router.push({ name: 'edit', params: {id: record.id}})"
-                  />
-                </div>
-                <div>
-                  <q-btn
-                    round
-                    class="q-ma-xs"
-                    icon="delete"
-                    color="negative"
-                    @click="confirmDelete(record.id)"
-                  />
+                    flat
+                    icon="more_vert"
+                    no-ripple
+                  >
+                    <q-popover>
+                      <q-list>
+                        <q-item>
+                          <q-btn
+                            class="full-width"
+                            label="Editar"
+                            icon="edit"
+                            color="primary"
+                            @click="$router.push({ name: 'edit', params: {id: record.id}})"
+                          />
+                        </q-item>
+                        <q-item>
+                          <q-btn
+                            class="full-width"
+                            label="Deletar"
+                            icon="delete"
+                            color="negative"
+                            @click="confirmDelete(record.id)"
+                          />
+                        </q-item>
+                      </q-list>
+                    </q-popover>
+                  </q-btn>
                 </div>
               </div>
             </div>

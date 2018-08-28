@@ -2,7 +2,7 @@
   <custom-card
     color="info"
     description="Pode dirigir:"
-    :value="`${distance} km`"
+    :value="distance >= 0 ? `${distance} km` : '--'"
     icon="fas fa-road"
   />
 </template>
@@ -19,16 +19,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', [
-      'settings',
-      'status',
-    ]),
+    ...mapGetters('user', ['current']),
 
     distance() {
-      // remainingDistance
-      const d = this.status.remainingDays * (this.settings.car.km.allowed / 7);
-      console.log(d);
-      return d;
+      return this.current.distance;
     },
   },
 };

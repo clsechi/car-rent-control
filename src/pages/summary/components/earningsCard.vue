@@ -1,9 +1,9 @@
 <template>
   <custom-card
     color="positive"
-    description="Meta de hoje:"
-    :value="goal ? `R$ ${goal.toFixed(2)}` : '--'"
-    icon="fas fa-car-side"
+    description="Você já fez::"
+    :value="earnings >= 0 ? `R$ ${earnings.toFixed()}` : '--'"
+    icon="attach_money"
   />
 </template>
 
@@ -12,7 +12,7 @@ import { mapGetters } from 'vuex';
 import customCard from './customCard';
 
 export default {
-  name: 'GoalCard',
+  name: 'EarningsCard',
 
   components: {
     'custom-card': customCard,
@@ -21,8 +21,8 @@ export default {
   computed: {
     ...mapGetters('user', ['current']),
 
-    goal() {
-      return this.current.costs / this.current.remainingDays;
+    earnings() {
+      return this.current.earnings;
     },
   },
 };

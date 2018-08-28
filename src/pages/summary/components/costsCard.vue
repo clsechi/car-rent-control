@@ -2,12 +2,13 @@
   <custom-card
     color="secondary"
     description="Precisa pagar:"
-    :value="`R$ ${2000}`"
+    :value="costs ? `R$ ${costs.toFixed(2)}` : '--'"
     icon="fas fa-hand-holding-usd"
   />
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import customCard from './customCard';
 
 export default {
@@ -15,6 +16,14 @@ export default {
 
   components: {
     'custom-card': customCard,
+  },
+
+  computed: {
+    ...mapGetters('user', ['current']),
+
+    costs() {
+      return this.current.costs;
+    },
   },
 };
 </script>

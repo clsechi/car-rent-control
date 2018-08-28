@@ -2,12 +2,13 @@
   <custom-card
     color="info"
     description="Você gastou:"
-    :value="`R$ ${250}`"
+    :value="spend ? `R$ ${spend.toFixed()}` : '--'"
     icon="money_off"
   />
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import customCard from './customCard';
 
 export default {
@@ -15,6 +16,14 @@ export default {
 
   components: {
     'custom-card': customCard,
+  },
+
+  computed: {
+    ...mapGetters('user', ['current']),
+
+    spend() {
+      return this.current.expenses;
+    },
   },
 };
 </script>

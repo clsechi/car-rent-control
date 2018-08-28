@@ -16,10 +16,14 @@
       <div class="col-xs-12 col-sm-6">
         <spending-card/>
       </div>
+      <div class="col-xs-12 col-sm-6">
+        <earnings-card/>
+      </div>
     </div>
     <q-btn
       round
       class="fixed"
+      size="20px"
       icon="add"
       color="secondary"
       @click="$router.push({ name: 'new' })"
@@ -32,6 +36,7 @@
 import costsCard from './components/costsCard.vue';
 import daysCard from './components/daysCard.vue';
 import distanceCard from './components/distanceCard.vue';
+import earningsCard from './components/earningsCard.vue';
 import goalCard from './components/goalCard.vue';
 import spendingCard from './components/spendingCard.vue';
 
@@ -42,6 +47,7 @@ export default {
     'costs-card': costsCard,
     'days-card': daysCard,
     'distance-card': distanceCard,
+    'earnings-card': earningsCard,
     'goal-card': goalCard,
     'spending-card': spendingCard,
   },

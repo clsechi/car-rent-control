@@ -1,12 +1,12 @@
 export default {
   user: {
-    settings: {
-      car: {
-        km: {
-          actual: 0,
-        },
-      },
+    settings: null,
+    current: {
+      costs: 0,
+      earnings: 0,
+      expenses: 0,
+      distance: 0,
+      remainingDays: 0,
     },
-    status: '',
   },
 };
