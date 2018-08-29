@@ -3,7 +3,7 @@
     <div class="row gutter-sm">
       <div
         class="col-12"
-        v-for="record in records"
+        v-for="record in ordenedRecords"
         :key="record.id"
       >
         <q-card color="tertiary">
@@ -12,10 +12,13 @@
               <div class="col-xs-6 col-md-8 flex">
                 <div class="row q-subheading items-center gutter-xs">
                   <div class="col-xs-12 col-md-auto">
-                    Distância: <span class="text-weight-bold">{{ record.kms }} km</span>
+                    Distância: <span class="text-weight-bold">{{ record.distance }} km</span>
                   </div>
                   <div class="col-xs-12 col-md-auto">
-                    Gastos: <span class="text-weight-bold">R$ {{ record.costs.toFixed(2) }}</span>
+                    Gastos:
+                    <span class="text-weight-bold">
+                      R$ {{ (record.costs.fuel + record.costs.others).toFixed(2) }}
+                    </span>
                   </div>
                   <div class="col-xs-12 col-md-auto">
                     Ganhos:
@@ -42,7 +45,7 @@
                   >
                     <q-popover>
                       <q-list>
-                        <q-item>
+                        <q-item v-close-overlay>
                           <q-btn
                             class="full-width"
                             label="Editar"
@@ -51,7 +54,7 @@
                             @click="$router.push({ name: 'edit', params: {id: record.id}})"
                           />
                         </q-item>
-                        <q-item>
+                        <q-item v-close-overlay>
                           <q-btn
                             class="full-width"
                             label="Deletar"
@@ -83,12 +86,19 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import { date } from 'quasar';
 
 export default {
+  name: 'Index',
+
   computed: {
     ...mapGetters('record', ['records']),
+
+    ordenedRecords() {
+      return _.orderBy(this.records, 'date', 'desc');
+    },
   },
 
   methods: {

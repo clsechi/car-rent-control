@@ -73,6 +73,7 @@ module.exports = function (ctx) {
       ],
       directives: [
         'Ripple',
+        'CloseOverlay',
       ],
       // Quasar plugins
       plugins: [
@@ -82,8 +83,10 @@ module.exports = function (ctx) {
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       i18n: 'pt-br',
     },
-    // animations: 'all' --- includes all animations
-    animations: [],
+    animations: 'all',
+    // animations: [
+    //   'fadeInUpBig',
+    // ],
     ssr: {
       pwa: false
     },

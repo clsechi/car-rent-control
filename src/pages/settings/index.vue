@@ -2,7 +2,14 @@
   <q-page padding>
     <q-card>
       <q-card-title>
-        <span slot="subtitle">Configurações</span>
+        <span class="title">Configurações</span>
+        <q-btn
+          :disable="!readonly"
+          color="primary"
+          class="float-right q-pa-sm"
+          icon="edit"
+          @click="readonly = false"
+        />
       </q-card-title>
       <q-card-main>
         <q-field
@@ -11,6 +18,7 @@
           icon="3d_rotation"
         >
           <q-input
+            :readonly="readonly"
             v-model="form.car.km.actual"
             float-label="Quilometragem atual"
             type="number"
@@ -24,10 +32,13 @@
           helper="Os kms combinados com a locadora"
           error-label="Campo obrigatório"
           icon="3d_rotation"
+          :error="$v.form.car.km.allowed.$error"
         >
           <q-input
+            :readonly="readonly"
+            @blur="$v.form.car.km.allowed.$touch"
             v-model="form.car.km.allowed"
-            float-label="*Quilometragem semanal"
+            float-label="*Quilometragem semanal permitida"
             type="number"
             suffix="Km"
             inverted
@@ -38,10 +49,49 @@
           helper="O custo combinado com a locadora"
           error-label="Campo obrigatório"
           icon="3d_rotation"
+          :error="$v.form.rental.cost.$error"
         >
           <q-input
+            :readonly="readonly"
+            @blur="$v.form.rental.cost.$touch"
             v-model="form.rental.cost"
             float-label="*Custo carro p/ semana"
+            type="number"
+            :decimals="2"
+            prefix="R$"
+            :step="0.01"
+            inverted
+            color="tertiary"
+          />
+        </q-field>
+        <q-field
+          helper="Caso você exceda a quilometragem permitida"
+          error-label="Campo obrigatório"
+          icon="3d_rotation"
+          :error="$v.form.rental.exceeded.$error"
+        >
+          <q-input
+            :readonly="readonly"
+            @blur="$v.form.rental.exceeded.$touch"
+            v-model="form.rental.exceeded"
+            float-label="*Custo por quilômetro excedido"
+            type="number"
+            :decimals="2"
+            prefix="R$"
+            :step="0.01"
+            inverted
+            color="tertiary"
+          />
+        </q-field>
+        <q-field
+          helper="Custos fixos que você possui"
+          error-label="Campo obrigatório"
+          icon="3d_rotation"
+        >
+          <q-input
+            :readonly="readonly"
+            v-model="form.costs"
+            float-label="Outros custos semanais"
             type="number"
             :decimals="2"
             prefix="R$"
@@ -56,36 +106,31 @@
           icon="3d_rotation"
         >
           <q-input
+            :readonly="readonly"
             v-model="form.car.plate"
             float-label="Placa do veículo"
             type="text"
+            upper-case
             inverted
             color="tertiary"
           />
         </q-field>
-        <q-field
-          helper="Caso você exceda a quilometragem permitida"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-        >
-          <q-input
-            v-model="form.rental.exceeded"
-            float-label="Custo p/ quilômetro excedido"
-            type="number"
-            :decimals="2"
-            prefix="R$"
-            :step="0.01"
-            inverted
-            color="tertiary"
+        <div class="flex justify-around" v-if="!readonly">
+          <q-btn
+            :disable="loading"
+            class="q-my-lg"
+            color="negative"
+            label="Cancelar"
+            @click="$router.push('/')"
           />
-        </q-field>
-        <q-btn
-          class="q-my-lg full-width"
-          color="positive"
-          label="Salvar"
-          @click="validateAndUpdateSettings"
-          :loading="loading"
-        />
+          <q-btn
+            class="q-my-lg"
+            color="positive"
+            label="Salvar"
+            @click="validateAndUpdateSettings"
+            :loading="loading"
+          />
+        </div>
       </q-card-main>
     </q-card>
   </q-page>
@@ -93,6 +138,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'IndexSettings',
@@ -111,9 +157,25 @@ export default {
           cost: '',
           exceeded: '',
         },
+        costs: '',
       },
       loading: false,
+      readonly: true,
     };
+  },
+
+  validations: {
+    form: {
+      car: {
+        km: {
+          allowed: { required },
+        },
+      },
+      rental: {
+        cost: { required },
+        exceeded: { required },
+      },
+    },
   },
 
   computed: {
@@ -122,8 +184,12 @@ export default {
 
   watch: {
     settings() {
-      if (this.settings) this.form = this.settings;
+      this.updateForm();
     },
+  },
+
+  created() {
+    this.updateForm();
   },
 
   methods: {
@@ -131,15 +197,19 @@ export default {
       'updateSettings',
     ]),
 
-    async validateAndUpdateSettings() {
-      // this.$v.form.$touch();
+    updateForm() {
+      if (this.settings) this.form = this.settings;
+    },
 
-      // if (this.$v.form.$error) {
-      //   this.$q.notify({
-      //     message: 'Por favor preencha os campos corretamente.',
-      //   });
-      //   return;
-      // }
+    async validateAndUpdateSettings() {
+      this.$v.form.$touch();
+
+      if (this.$v.form.$error) {
+        this.$q.notify({
+          message: 'Por favor preencha os campos corretamente.',
+        });
+        return;
+      }
       this.loading = true;
       try {
         await this.updateSettings({
@@ -158,12 +228,17 @@ export default {
         });
       }
       this.loading = false;
+      this.readonly = true;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.title {
+  font-size: 14px;
+  color: rgba(0,0,0,0.4);
+}
 .q-field {
   font-size: 1.25em;
 }
