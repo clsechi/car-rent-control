@@ -3,7 +3,6 @@
     <transition
       appear
       enter-active-class="animated fadeInUp"
-      leave-active-class="animated fadeOut"
     >
       <q-card>
         <q-card-title>
