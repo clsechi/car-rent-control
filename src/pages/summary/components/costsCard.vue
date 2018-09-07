@@ -1,6 +1,6 @@
 <template>
   <custom-card
-    color="secondary"
+    color=""
     description="Precisa pagar:"
     :value="costs ? `R$ ${costs.toFixed(2)}` : '--'"
     icon="fas fa-hand-holding-usd"
@@ -19,10 +19,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['current']),
+    ...mapGetters('user', [
+      'current',
+      'settings',
+    ]),
 
     costs() {
-      return this.current.costs;
+      const earnings = this.current.earnings - this.current.expenses;
+      const costs = this.settings.rental.cost + this.settings.costs;
+      return costs - earnings;
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <custom-card
-    color="info"
+    color=""
     description="Pode dirigir:"
     :value="distance >= 0 ? `${distance} km` : '--'"
     icon="fas fa-road"
@@ -19,10 +19,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['current']),
+    ...mapGetters('user', [
+      'current',
+      'settings',
+    ]),
 
     distance() {
-      return this.current.distance;
+      return this.settings.car.km.allowed - this.current.distance;
     },
   },
 };

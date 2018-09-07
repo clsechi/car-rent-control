@@ -1,5 +1,6 @@
 <template>
   <q-card
+    square
     :color="color"
   >
     <q-card-main class="row">

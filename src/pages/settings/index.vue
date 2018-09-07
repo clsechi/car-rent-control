@@ -2,7 +2,6 @@
   <q-page padding>
     <q-card>
       <q-card-title>
-        <span class="title">Configurações</span>
         <q-btn
           :disable="!readonly"
           color="primary"
@@ -55,7 +54,7 @@
             :readonly="readonly"
             @blur="$v.form.rental.cost.$touch"
             v-model="form.rental.cost"
-            float-label="*Custo carro p/ semana"
+            float-label="*Custo carro por semana"
             type="number"
             :decimals="2"
             prefix="R$"

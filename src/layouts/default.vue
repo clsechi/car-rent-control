@@ -1,47 +1,61 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hhh Lpr fFf">
     <q-layout-header>
       <q-toolbar
         color="primary"
       >
         <q-btn
-          icon="arrow_back"
-          text-color="white"
-          size="15px"
+          flat
           round
           dense
-          flat
-          no-ripple
-          @click="$router.push('/')"
+          icon="menu"
+          @click="leftDrawer = !leftDrawer"
         />
-        <q-toolbar-title class="text-center">
-          Controle de Aluguel
+        <q-toolbar-title>
+          Sua semana
         </q-toolbar-title>
-        <span class="text-right">
-          JP
-        </span>
       </q-toolbar>
-      <q-tabs
-        animated
-        align="center"
-      >
-        <q-route-tab
-          slot="title"
-          :to="{ name: 'summary'}"
-          icon="dashboard"
-        />
-        <q-route-tab
-          slot="title"
-          :to="{ name: 'records'}"
-          icon="list"
-        />
-        <q-route-tab
-          slot="title"
-          :to="{ name: 'settings'}"
-          icon="settings"
-        />
-      </q-tabs>
     </q-layout-header>
+
+    <q-layout-drawer
+      side="left"
+      v-model="leftDrawer"
+    >
+      <div class="row flex items-end menu text-weight-medium" style="height: 23%">
+        <div class="col-12">
+          <img
+            src="https://api.adorable.io/avatars/285/jp@email.com.png"
+            alt="avatar"
+            width="60px"
+            class="avatar"
+          >
+        </div>
+        <div class="col-12">
+          João Paulo
+        </div>
+        <div class="col-12">
+          jp@email.com
+        </div>
+      </div>
+      <q-list highlight>
+        <q-item :to="{ name: 'summary'}">
+          <q-item-side icon="dashboard"/>
+          <q-item-main label="Sua Semana"/>
+        </q-item>
+        <q-item :to="{ name: 'records'}">
+          <q-item-side icon="list"/>
+          <q-item-main label="Registros"/>
+        </q-item>
+        <q-item :to="{ name: 'settings'}">
+          <q-item-side icon="settings"/>
+          <q-item-main label="Configurações"/>
+        </q-item>
+        <q-item class="fixed-bottom" sparse>
+          <q-item-side icon="exit_to_app"/>
+          <q-item-main label="Sair"/>
+        </q-item>
+      </q-list>
+    </q-layout-drawer>
 
     <q-page-container>
       <router-view />
@@ -54,6 +68,12 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'default',
+
+  data() {
+    return {
+      leftDrawer: true,
+    };
+  },
 
   methods: {
     ...mapActions('record', [
@@ -72,5 +92,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.menu {
+  background-image: url('../assets/bg.jpeg');
+  padding: 15px;
+}
+.avatar {
+  border-radius: 100%
+}
 </style>

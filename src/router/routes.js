@@ -4,11 +4,26 @@ const routes = [
     path: '/',
     component: () => import('layouts/default.vue'),
     children: [
-      { path: '', name: 'summary', component: () => import('pages/summary/index.vue') },
-      { path: '/configuracoes', name: 'settings', component: () => import('pages/settings/index.vue') },
+      {
+        path: '',
+        name: 'summary',
+        component: () => import('pages/summary/index.vue'),
+      },
       { path: '/records', name: 'records', component: () => import('pages/records/index.vue') },
       { path: '/records/novo', name: 'new', component: () => import('pages/records/new.vue') },
       { path: '/records/:id', name: 'edit', component: () => import('pages/records/edit.vue') },
+    ],
+  },
+  {
+    path: '/configuracoes',
+    name: 'settings',
+    component: () => import('layouts/settings.vue'),
+    children: [
+      {
+        path: '',
+        name: 'settings',
+        component: () => import('pages/settings/index.vue'),
+      },
     ],
   },
 ];

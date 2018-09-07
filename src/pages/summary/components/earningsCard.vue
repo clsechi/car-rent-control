@@ -1,6 +1,6 @@
 <template>
   <custom-card
-    color="positive"
+    color=""
     description="Você já fez::"
     :value="earnings >= 0 ? `R$ ${earnings.toFixed()}` : '--'"
     icon="attach_money"

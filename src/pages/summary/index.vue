@@ -23,7 +23,7 @@
     <q-btn
       round
       class="fixed"
-      size="20px"
+      size="18px"
       icon="add"
       color="secondary"
       @click="$router.push({ name: 'new' })"

@@ -17,7 +17,7 @@
                   <div class="col-xs-12 col-md-auto">
                     Gastos:
                     <span class="text-weight-bold">
-                      R$ {{ (record.costs.fuel + record.costs.others).toFixed(2) }}
+                      R$ {{ (record.expenses.fuel + record.expenses.others).toFixed(2) }}
                     </span>
                   </div>
                   <div class="col-xs-12 col-md-auto">
@@ -75,7 +75,7 @@
     </div>
     <q-btn
       round
-      size="20px"
+      size="18px"
       class="fixed"
       icon="add"
       color="secondary"

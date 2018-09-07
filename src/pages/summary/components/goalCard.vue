@@ -1,6 +1,6 @@
 <template>
   <custom-card
-    color="positive"
+    color=""
     description="Meta de hoje:"
     :value="goal ? `R$ ${goal.toFixed(2)}` : '--'"
     icon="fas fa-car-side"
@@ -19,10 +19,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['current']),
+    ...mapGetters('user', [
+      'current',
+      'settings',
+    ]),
 
     goal() {
-      return this.current.costs / this.current.remainingDays;
+      const earnings = this.current.earnings - this.current.expenses;
+      const costs = this.settings.rental.cost + this.settings.costs;
+      return (costs - earnings) / this.current.remainingDays;
     },
   },
 };

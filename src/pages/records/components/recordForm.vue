@@ -10,9 +10,9 @@
         </q-card-title>
         <q-card-main>
           <q-field
-            helper="O dia que você fez as corridas"
+            class="q-mb-md"
             error-label="Campo obrigatório"
-            icon="3d_rotation"
+            icon="today"
             :error="$v.form.date.$error"
           >
             <q-datetime
@@ -21,66 +21,61 @@
               float-label="Data"
               format="dddd, DD/MM/YYYY"
               @blur="$v.form.date.$touch"
-              inverted
-              color="tertiary"
+              inverted-light
+              color="grey-4"
             />
           </q-field>
           <q-field
-            helper="Quantos kms seu carro andou hoje"
-            error-label="Campo obrigatório"
-            icon="3d_rotation"
-            :error="$v.form.distance.$error"
+            class="q-my-md"
+            icon="fas fa-road"
           >
             <q-input
+              autofocus
               v-model="form.distance"
               float-label="Quilômetros rodados"
               type="number"
               suffix="Km"
-              @blur="$v.form.distance.$touch"
-              inverted
-              color="tertiary"
+              inverted-light
+              color="grey-4"
             />
           </q-field>
           <q-field
-            helper="Colocou combustível hoje?"
+            class="q-my-md"
             error-label="Campo obrigatório"
-            icon="3d_rotation"
-            :error="$v.form.costs.fuel.$error"
+            icon="local_gas_station"
+            :error="$v.form.expenses.fuel.$error"
           >
             <q-input
-              v-model="form.costs.fuel"
+              v-model="form.expenses.fuel"
               float-label="Gastos com combustível"
               type="number"
               :decimals="2"
               prefix="R$"
               :step="0.01"
-              @blur="$v.form.costs.fuel.$touch"
-              inverted
-              color="tertiary"
+              @blur="$v.form.expenses.fuel.$touch"
+              inverted-light
+              color="grey-4"
             />
           </q-field>
           <q-field
-            helper="A soma dos gastos de hoje, fora o combustível"
-            error-label="Campo obrigatório"
-            icon="3d_rotation"
-            :error="$v.form.costs.others.$error"
+            class="q-my-md"
+            icon="money_off"
           >
             <q-input
-              v-model="form.costs.others"
+              v-model="form.expenses.others"
               float-label="Outros gastos"
               type="number"
               :decimals="2"
               prefix="R$"
               :step="0.01"
-              @blur="$v.form.costs.others.$touch"
-              inverted
-              color="tertiary"
+              inverted-light
+              color="grey-4"
             />
           </q-field>
           <q-field
-            helper="A soma dos ganhos de hoje com as corridas"
+            class="q-my-md"
             error-label="Campo obrigatório"
-            icon="3d_rotation"
+            icon="attach_money"
             :error="$v.form.earnings.$error"
           >
             <q-input
@@ -91,8 +86,8 @@
               prefix="R$"
               :step="0.01"
               @blur="$v.form.earnings.$touch"
-              inverted
-              color="tertiary"
+              inverted-light
+              color="grey-4"
             />
           </q-field>
           <div class="flex justify-around">
@@ -145,12 +140,12 @@ export default {
     return {
       form: {
         date: new Date(),
-        distance: '',
-        costs: {
-          fuel: '',
-          others: '',
+        distance: null,
+        expenses: {
+          fuel: null,
+          others: null,
         },
-        earnings: '',
+        earnings: null,
       },
       loading: false,
     };
@@ -167,10 +162,8 @@ export default {
   validations: {
     form: {
       date: { required },
-      distance: { required },
-      costs: {
+      expenses: {
         fuel: { required },
-        others: { required },
       },
       earnings: { required },
     },
@@ -180,6 +173,10 @@ export default {
     ...mapActions('record', [
       'createRecord',
       'updateRecord',
+    ]),
+
+    ...mapActions('user', [
+      'updateCurrentStatus',
     ]),
 
     findRecord() {
@@ -211,12 +208,13 @@ export default {
             payload: this.form,
             userId: 'jp@email.com',
           });
+          await this.updateCurrentStatus(this.form);
         }
-        this.$router.push({ name: 'records' });
         this.$q.notify({
           type: 'positive',
           message: this.message,
         });
+        this.$router.go(-1);
       } catch (err) {
         this.loading = false;
         this.$q.notify({
