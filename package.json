@@ -9,7 +9,8 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "build": "npx quasar build && npx firebase deploy --only hosting"
   },
   "dependencies": {
     "axios": "^0.18.0",
