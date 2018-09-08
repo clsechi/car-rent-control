@@ -1,6 +1,10 @@
 <template>
   <q-page padding>
-    <div class="row gutter-sm">
+    <div v-if="!ordenedRecords.length > 0" class="text-center">
+      <p class="q-display-1">Nenhum registro encontrado :(</p>
+      <p class="q-subheading">Clique no <b>+</b> para criar seu primeiro registro</p>
+    </div>
+    <div v-else class="row gutter-sm">
       <div
         class="col-12"
         v-for="record in ordenedRecords"

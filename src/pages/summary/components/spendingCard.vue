@@ -2,7 +2,7 @@
   <custom-card
     color=""
     description="Você gastou:"
-    :value="spend ? `R$ ${spend.toFixed()}` : '--'"
+    :value="spend >= 0 ? `R$ ${spend.toFixed()}` : '--'"
     icon="money_off"
   />
 </template>
