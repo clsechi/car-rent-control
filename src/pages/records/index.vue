@@ -28,44 +28,42 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xs-5 col-md-2 flex flex-center">
+              <div class="col-xs-5 col-md-3 flex flex-center">
                 <div class="text-center q-subheading">
                   <div>{{ formatDate(record.date) }}</div>
                   <hr>
                   <div>{{ record.date.getFullYear() }}</div>
                 </div>
               </div>
-              <div class="col-1 flex">
-                <div>
-                  <q-btn
-                    round
-                    flat
-                    dense
-                    icon="more_vert"
-                    no-ripple
-                  >
-                    <q-popover>
-                      <q-list>
-                        <q-item v-close-overlay>
-                          <q-btn
-                            round
-                            icon="edit"
-                            color="primary"
-                            @click="$router.push({ name: 'edit', params: {id: record.id}})"
-                          />
-                        </q-item>
-                        <q-item v-close-overlay>
-                          <q-btn
-                            round
-                            icon="delete"
-                            color="negative"
-                            @click="confirmDelete(record.id)"
-                          />
-                        </q-item>
-                      </q-list>
-                    </q-popover>
-                  </q-btn>
-                </div>
+              <div class="col-1">
+                <q-btn
+                  round
+                  flat
+                  dense
+                  icon="more_vert"
+                  no-ripple
+                >
+                  <q-popover>
+                    <q-list>
+                      <q-item v-close-overlay>
+                        <q-btn
+                          round
+                          icon="edit"
+                          color="primary"
+                          @click="$router.push({ name: 'edit', params: {id: record.id}})"
+                        />
+                      </q-item>
+                      <q-item v-close-overlay>
+                        <q-btn
+                          round
+                          icon="delete"
+                          color="negative"
+                          @click="confirmDelete(record.id)"
+                        />
+                      </q-item>
+                    </q-list>
+                  </q-popover>
+                </q-btn>
               </div>
             </div>
           </q-card-main>

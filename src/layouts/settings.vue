@@ -1,5 +1,5 @@
 <template>
-  <q-layout> <!-- Be sure to play with the Layout demo on docs -->
+  <q-layout>
     <q-layout-header>
       <q-toolbar>
         <q-btn

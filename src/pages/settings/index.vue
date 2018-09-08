@@ -1,137 +1,114 @@
 <template>
-  <q-page padding>
-    <q-card>
-      <q-card-title>
-        <q-btn
-          :disable="!readonly"
-          color="primary"
-          class="float-right q-pa-sm"
-          icon="edit"
-          @click="readonly = false"
-        />
-      </q-card-title>
-      <q-card-main>
-        <q-field
-          helper="Seu carro tem quantos kms?"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-        >
-          <q-input
-            :readonly="readonly"
+  <q-page>
+    <q-list link>
+      <!-- <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Notificações</q-item-tile>
+          <q-item-tile sublabel>Notify me aboumes that I downloaded</q-item-tile>
+        </q-item-main>
+        <q-item-side>
+        </q-item-side>
+      </q-item> -->
+      <q-list-header>Aluguel</q-list-header>
+      <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Quilometragem atual</q-item-tile>
+          <q-item-tile sublabel>{{ form.car.km.actual }} km</q-item-tile>
+          <q-popup-edit
             v-model="form.car.km.actual"
-            float-label="Quilometragem atual"
-            type="number"
-            suffix="Km"
-            inverted
-            color="tertiary"
+            buttons
+            label-set="Salvar"
+            @save="validateAndUpdateSettings"
           >
-          </q-input>
-        </q-field>
-        <q-field
-          helper="Os kms combinados com a locadora"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-          :error="$v.form.car.km.allowed.$error"
-        >
-          <q-input
-            :readonly="readonly"
-            @blur="$v.form.car.km.allowed.$touch"
+            <q-input type="number" v-model="form.car.km.actual" />
+          </q-popup-edit>
+        </q-item-main>
+      </q-item>
+      <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Quilometragem semanal permitida</q-item-tile>
+          <q-item-tile sublabel>{{ form.car.km.allowed }} km</q-item-tile>
+          <q-popup-edit
             v-model="form.car.km.allowed"
-            float-label="*Quilometragem semanal permitida"
-            type="number"
-            suffix="Km"
-            inverted
-            color="tertiary"
-          />
-        </q-field>
-        <q-field
-          helper="O custo combinado com a locadora"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-          :error="$v.form.rental.cost.$error"
-        >
-          <q-input
-            :readonly="readonly"
-            @blur="$v.form.rental.cost.$touch"
+            buttons
+            label-set="Salvar"
+            @save="validateAndUpdateSettings"
+          >
+            <q-input type="number" v-model="form.car.km.allowed" />
+          </q-popup-edit>
+        </q-item-main>
+      </q-item>
+      <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Custo carro por semana</q-item-tile>
+          <q-item-tile sublabel>R$ {{ form.rental.cost }}</q-item-tile>
+          <q-popup-edit
             v-model="form.rental.cost"
-            float-label="*Custo carro por semana"
-            type="number"
-            :decimals="2"
-            prefix="R$"
-            :step="0.01"
-            inverted
-            color="tertiary"
-          />
-        </q-field>
-        <q-field
-          helper="Caso você exceda a quilometragem permitida"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-          :error="$v.form.rental.exceeded.$error"
-        >
-          <q-input
-            :readonly="readonly"
-            @blur="$v.form.rental.exceeded.$touch"
+            buttons
+            label-set="Salvar"
+            @save="validateAndUpdateSettings"
+          >
+            <q-input type="number" v-model="form.rental.cost" />
+          </q-popup-edit>
+        </q-item-main>
+      </q-item>
+      <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Custo por quilômetro excedido</q-item-tile>
+          <q-item-tile sublabel>R$ {{ form.rental.exceeded }}</q-item-tile>
+          <q-popup-edit
             v-model="form.rental.exceeded"
-            float-label="*Custo por quilômetro excedido"
-            type="number"
-            :decimals="2"
-            prefix="R$"
-            :step="0.01"
-            inverted
-            color="tertiary"
-          />
-        </q-field>
-        <q-field
-          helper="Custos fixos que você possui"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-        >
-          <q-input
-            :readonly="readonly"
+            buttons
+            label-set="Salvar"
+            @save="validateAndUpdateSettings"
+          >
+            <q-input type="number" v-model="form.rental.exceeded" />
+          </q-popup-edit>
+        </q-item-main>
+      </q-item>
+      <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Outros custos semanais</q-item-tile>
+          <q-item-tile sublabel>R$ {{ form.costs }}</q-item-tile>
+          <q-popup-edit
             v-model="form.costs"
-            float-label="Outros custos semanais"
-            type="number"
-            :decimals="2"
-            prefix="R$"
-            :step="0.01"
-            inverted
-            color="tertiary"
-          />
-        </q-field>
-        <q-field
-          helper="Iremos te lembrar do seu rodízio"
-          error-label="Campo obrigatório"
-          icon="3d_rotation"
-        >
-          <q-input
-            :readonly="readonly"
+            buttons
+            label-set="Salvar"
+            @save="validateAndUpdateSettings"
+          >
+            <q-input type="number" v-model="form.costs" />
+          </q-popup-edit>
+        </q-item-main>
+      </q-item>
+      <q-item tag="label">
+        <q-item-side>
+        </q-item-side>
+        <q-item-main>
+          <q-item-tile label>Placa do veículo</q-item-tile>
+          <q-item-tile sublabel>{{ form.car.plate }}</q-item-tile>
+          <q-popup-edit
             v-model="form.car.plate"
-            float-label="Placa do veículo"
-            type="text"
-            upper-case
-            inverted
-            color="tertiary"
-          />
-        </q-field>
-        <div class="flex justify-around" v-if="!readonly">
-          <q-btn
-            :disable="loading"
-            class="q-my-lg"
-            color="negative"
-            label="Cancelar"
-            @click="$router.push('/')"
-          />
-          <q-btn
-            class="q-my-lg"
-            color="positive"
-            label="Salvar"
-            @click="validateAndUpdateSettings"
-            :loading="loading"
-          />
-        </div>
-      </q-card-main>
-    </q-card>
+            buttons
+            label-set="Salvar"
+            @save="validateAndUpdateSettings"
+          >
+            <q-input type="text" v-model="form.car.plate" />
+          </q-popup-edit>
+        </q-item-main>
+      </q-item>
+    </q-list>
   </q-page>
 </template>
 
@@ -159,7 +136,6 @@ export default {
         costs: '',
       },
       loading: false,
-      readonly: true,
     };
   },
 
@@ -227,18 +203,10 @@ export default {
         });
       }
       this.loading = false;
-      this.readonly = true;
     },
   },
 };
 </script>
 
 <style scoped>
-.title {
-  font-size: 14px;
-  color: rgba(0,0,0,0.4);
-}
-.q-field {
-  font-size: 1.25em;
-}
 </style>

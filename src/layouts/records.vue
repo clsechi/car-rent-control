@@ -3,11 +3,14 @@
     <q-layout-header>
       <q-toolbar>
         <q-btn
-          flat
+          icon="arrow_back"
+          text-color="white"
+          size="15px"
           round
           dense
-          icon="menu"
-          @click="open = !open"
+          flat
+          no-ripple
+          @click="$router.push('/')"
         />
         <q-toolbar-title>
           Registros
@@ -15,34 +18,43 @@
       </q-toolbar>
     </q-layout-header>
 
-   <q-layout-drawer
-      side="left"
-      v-model="open"
-    >
-      <navigation-drawer/>
-    </q-layout-drawer>
-
     <q-page-container>
-      <router-view />
+      <router-view/>
+
+      <q-inner-loading :visible="loading">
+        <q-spinner size="50px" color="primary"></q-spinner>
+      </q-inner-loading>
     </q-page-container>
 
   </q-layout>
 </template>
 
 <script>
-import navigationDrawer from '../components/navigationDrawer.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   // name: 'LayoutName',
 
-  components: {
-    'navigation-drawer': navigationDrawer,
-  },
-
   data() {
     return {
       open: true,
+      loading: true,
     };
+  },
+
+  computed: {
+    ...mapGetters('record', ['records']),
+  },
+
+  methods: {
+    ...mapActions('record', [
+      'getRecords',
+    ]),
+  },
+
+  async created() {
+    if (!this.records.length > 0) await this.getRecords('jp@email.com');
+    this.loading = false;
   },
 };
 </script>
