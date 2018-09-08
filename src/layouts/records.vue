@@ -1,9 +1,7 @@
 <template>
-  <q-layout view="hhh Lpr fFf">
+  <q-layout>
     <q-layout-header>
-      <q-toolbar
-        color="primary"
-      >
+      <q-toolbar>
         <q-btn
           flat
           round
@@ -12,12 +10,12 @@
           @click="open = !open"
         />
         <q-toolbar-title>
-          Sua semana
+          Registros
         </q-toolbar-title>
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
+   <q-layout-drawer
       side="left"
       v-model="open"
     >
@@ -27,15 +25,15 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script>
 import navigationDrawer from '../components/navigationDrawer.vue';
-import { mapActions } from 'vuex';
 
 export default {
-  name: 'default',
+  // name: 'LayoutName',
 
   components: {
     'navigation-drawer': navigationDrawer,
@@ -46,24 +44,8 @@ export default {
       open: true,
     };
   },
-
-  methods: {
-    ...mapActions('record', [
-      'getRecords',
-    ]),
-
-    ...mapActions('user', [
-      'getUser',
-    ]),
-  },
-
-  async created() {
-    await this.getUser('jp@email.com');
-    await this.getRecords('jp@email.com');
-  },
 };
 </script>
 
-<style scoped>
-
+<style>
 </style>

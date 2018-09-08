@@ -1,13 +1,10 @@
 <template>
-  <q-page padding>
+  <q-page>
     <transition
       appear
       enter-active-class="animated fadeInUp"
     >
       <q-card>
-        <q-card-title>
-          <span slot="subtitle">{{ title }}</span>
-        </q-card-title>
         <q-card-main>
           <q-field
             class="q-mb-md"
@@ -30,7 +27,6 @@
             icon="fas fa-road"
           >
             <q-input
-              autofocus
               v-model="form.distance"
               float-label="Quilômetros rodados"
               type="number"

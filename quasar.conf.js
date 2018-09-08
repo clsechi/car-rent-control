@@ -83,10 +83,10 @@ module.exports = function (ctx) {
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       i18n: 'pt-br',
     },
-    //animations: 'all',
-    animations: [
-      'fadeInUp',
-    ],
+    animations: 'all',
+    // animations: [
+    //   'fadeInUp',
+    // ],
     ssr: {
       pwa: false
     },

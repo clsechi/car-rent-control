@@ -38,8 +38,10 @@
               <div class="col-1 flex">
                 <div>
                   <q-btn
+                    class=""
                     round
                     flat
+                    dense
                     icon="more_vert"
                     no-ripple
                   >
@@ -47,8 +49,7 @@
                       <q-list>
                         <q-item v-close-overlay>
                           <q-btn
-                            class="full-width"
-                            label="Editar"
+                            round
                             icon="edit"
                             color="primary"
                             @click="$router.push({ name: 'edit', params: {id: record.id}})"
@@ -56,8 +57,7 @@
                         </q-item>
                         <q-item v-close-overlay>
                           <q-btn
-                            class="full-width"
-                            label="Deletar"
+                            round
                             icon="delete"
                             color="negative"
                             @click="confirmDelete(record.id)"
