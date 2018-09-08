@@ -38,7 +38,6 @@
               <div class="col-1 flex">
                 <div>
                   <q-btn
-                    class=""
                     round
                     flat
                     dense
