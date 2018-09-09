@@ -10,7 +10,7 @@
         v-for="record in ordenedRecords"
         :key="record.id"
       >
-        <q-card color="tertiary">
+        <q-card>
           <q-card-main>
             <div class="row">
               <div class="col-xs-6 col-md-8 flex">
@@ -53,7 +53,7 @@
                         <q-btn
                           round
                           icon="edit"
-                          color="primary"
+                          color="secondary"
                           @click="$router.push({ name: 'edit', params: {id: record.id}})"
                         />
                       </q-item>

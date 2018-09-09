@@ -11,7 +11,7 @@
         <div class="col-auto">
           <q-icon
           :name="icon"
-          size="60px"
+          size="3.63rem"
           />
         </div>
       </q-card-main>
