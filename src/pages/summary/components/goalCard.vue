@@ -20,14 +20,17 @@ export default {
 
   computed: {
     ...mapGetters('user', [
-      'current',
       'settings',
     ]),
 
+    ...mapGetters('status', [
+      'status',
+    ]),
+
     goal() {
-      const earnings = this.current.earnings - this.current.expenses;
+      const earnings = this.status.earnings - this.status.expenses;
       const costs = this.settings.rental.cost + this.settings.costs;
-      return (costs - earnings) / this.current.remainingDays;
+      return (costs - earnings) / this.status.remainingDays;
     },
   },
 };

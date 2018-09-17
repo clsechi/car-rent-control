@@ -24,8 +24,12 @@ export default {
       'settings',
     ]),
 
+    ...mapGetters('status', [
+      'status',
+    ]),
+
     costs() {
-      const earnings = this.current.earnings - this.current.expenses;
+      const earnings = this.status.earnings - this.status.expenses;
       const costs = this.settings.rental.cost + this.settings.costs;
       return costs - earnings;
     },

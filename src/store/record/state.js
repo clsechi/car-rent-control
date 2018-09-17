@@ -1,3 +1,6 @@
 export default {
-  records: [],
+  records: {
+    week: [],
+    all: [],
+  },
 };

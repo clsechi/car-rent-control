@@ -20,12 +20,15 @@ export default {
 
   computed: {
     ...mapGetters('user', [
-      'current',
       'settings',
     ]),
 
+    ...mapGetters('status', [
+      'status',
+    ]),
+
     distance() {
-      return this.settings.car.km.allowed - this.current.distance;
+      return this.settings.car.km.allowed - this.status.distance;
     },
   },
 };

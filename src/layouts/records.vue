@@ -53,7 +53,7 @@ export default {
   },
 
   async created() {
-    if (!this.records.length > 0) await this.getRecords('jp@email.com');
+    await this.getRecords('jp@email.com');
     this.loading = false;
   },
 };

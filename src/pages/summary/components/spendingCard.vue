@@ -19,10 +19,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['current']),
+    ...mapGetters('status', [
+      'status',
+    ]),
 
     spend() {
-      return this.current.expenses;
+      return this.status.expenses;
     },
   },
 };

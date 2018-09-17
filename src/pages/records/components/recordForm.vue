@@ -171,10 +171,6 @@ export default {
       'updateRecord',
     ]),
 
-    ...mapActions('user', [
-      'updateCurrentStatus',
-    ]),
-
     findRecord() {
       const data = this.records.find(record => record.id === this.id);
       if (!data) {
@@ -204,7 +200,6 @@ export default {
             payload: this.form,
             userId: 'jp@email.com',
           });
-          await this.updateCurrentStatus(this.form);
         }
         this.$q.notify({
           type: 'positive',

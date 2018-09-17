@@ -1,3 +1,3 @@
-/* eslint-disable */
+export const records = state => state.records.all;
 
-export const records = state => state.records;
+export const weekRecords = state => state.records.week;

@@ -19,10 +19,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['current']),
+    ...mapGetters('status', [
+      'status',
+    ]),
 
     earnings() {
-      return this.current.earnings;
+      return this.status.earnings;
     },
   },
 };

@@ -5,7 +5,3 @@ export const setSettings = (state, data) => {
 export const setUser = (state, data) => {
   state.user = data;
 };
-
-export const updateCurrentStatus = (state, data) => {
-  state.user.current = data;
-};

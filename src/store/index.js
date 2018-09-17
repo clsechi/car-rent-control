@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import record from './record';
 import user from './user';
+import status from './status';
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ export default function (/* { ssrContext } */) {
     modules: {
       record,
       user,
+      status,
     },
   });
 

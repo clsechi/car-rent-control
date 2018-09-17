@@ -19,10 +19,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['current']),
+    ...mapGetters('status', [
+      'status',
+    ]),
 
     date() {
-      return this.current.remainingDays;
+      return this.status.remainingDays;
     },
   },
 };

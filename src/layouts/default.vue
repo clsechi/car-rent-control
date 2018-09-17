@@ -56,12 +56,16 @@
 
     <q-page-container>
       <router-view />
+
+      <q-inner-loading :visible="loading">
+        <q-spinner size="50px" color="primary"></q-spinner>
+      </q-inner-loading>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-// import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'default',
@@ -69,18 +73,24 @@ export default {
   data() {
     return {
       open: true,
+      loading: true,
     };
   },
 
-  // methods: {
-  //   ...mapActions('user', [
-  //     'getUser',
-  //   ]),
-  // },
+  methods: {
+    ...mapActions('record', [
+      'getWeekRecords',
+    ]),
+  },
 
-  // async created() {
-  //   await this.getUser('jp@email.com');
-  // },
+  computed: {
+    ...mapGetters('record', ['weekRecords']),
+  },
+
+  async created() {
+    await this.getWeekRecords('jp@email.com');
+    this.loading = false;
+  },
 };
 </script>
 

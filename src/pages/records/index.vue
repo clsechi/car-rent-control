@@ -1,8 +1,11 @@
 <template>
   <q-page padding>
-    <div v-if="!ordenedRecords.length > 0" class="text-center">
+    <div v-if="ordenedRecords.length === 0" class="text-center">
       <p class="q-display-1">Nenhum registro encontrado :(</p>
-      <p class="q-subheading">Clique no <b>+</b> para criar seu primeiro registro</p>
+      <p class="q-subheading">
+        Clique no <q-icon name="add" size="20px"/>
+        para criar seu primeiro registro
+      </p>
     </div>
     <div v-else class="row gutter-sm">
       <div
@@ -62,7 +65,7 @@
                           round
                           icon="delete"
                           color="negative"
-                          @click="confirmDelete(record.id)"
+                          @click="confirmDelete(record)"
                         />
                       </q-item>
                     </q-list>
@@ -111,7 +114,7 @@ export default {
       return date.formatDate(val, 'DD/MM');
     },
 
-    async confirmDelete(id) {
+    async confirmDelete(record) {
       try {
         await this.$q.dialog({
           title: 'Confirmação',
@@ -119,14 +122,14 @@ export default {
           ok: 'Excluir',
           cancel: 'Cancelar',
         });
-        this.deleteActualRecord(id);
+        this.deleteActualRecord(record);
       } catch (err) {} // eslint-disable-line
     },
 
-    async deleteActualRecord(id) {
+    async deleteActualRecord(record) {
       try {
         await this.deleteRecord({
-          id,
+          record,
           userId: 'jp@email.com',
         });
         this.$q.notify({
