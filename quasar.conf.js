@@ -89,16 +89,21 @@ module.exports = function (ctx) {
     // animations: 'all',
     animations: [
       'fadeInUp',
+      'fadeIn',
+      'fadeOut',
     ],
     ssr: {
       pwa: false
     },
     pwa: {
-      // workboxPluginMode: 'InjectManifest',
-      // workboxOptions: {},
+      workboxPluginMode: 'InjectManifest',
+      workboxOptions: {
+        importWorkboxFrom: 'cdn',
+        exclude: [/\/icons\//, 'manifest.json'],
+      },
       manifest: {
         name: 'Controle de Aluguel',
-        short_name: 'Aluguel',
+        short_name: 'Aluguel Carro',
         description: 'Tenha controle do aluguel do seu carro, para quem trabalha com Uber/99',
         display: 'standalone',
         orientation: 'portrait',

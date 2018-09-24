@@ -16,6 +16,8 @@ const fireApp = firebase.initializeApp(config);
 const AUTH = fireApp.auth();
 
 fireApp.firestore().settings({ timestampsInSnapshots: true });
+fireApp.firestore().enablePersistence();
+
 const DB = fireApp.firestore();
 
 export default ({ Vue }) => {
