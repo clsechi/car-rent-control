@@ -1,6 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import firebase from 'firebase';
+// import 'firebase/auth';
+// import 'firebase/firestore';
+import * as firebaseui from 'firebaseui';
+
+console.log(firebaseui);
 
 const config = {
   apiKey: 'AIzaSyDz7HEWdU8GHO70NbGmH2DZfvyaGEzITYQ',
@@ -13,7 +16,7 @@ const config = {
 
 const fireApp = firebase.initializeApp(config);
 
-const AUTH = fireApp.auth();
+const AUTH = fireApp.auth;
 
 fireApp.firestore().settings({ timestampsInSnapshots: true });
 fireApp.firestore().enablePersistence();
