@@ -1,9 +1,7 @@
-import firebase from 'firebase';
-// import 'firebase/auth';
-// import 'firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import * as firebaseui from 'firebaseui';
-
-console.log(firebaseui);
 
 const config = {
   apiKey: 'AIzaSyDz7HEWdU8GHO70NbGmH2DZfvyaGEzITYQ',
@@ -14,16 +12,17 @@ const config = {
   messagingSenderId: '64153021131',
 };
 
-const fireApp = firebase.initializeApp(config);
+firebase.initializeApp(config);
 
-const AUTH = fireApp.auth;
+firebase.firestore().settings({ timestampsInSnapshots: true });
+firebase.firestore().enablePersistence();
 
-fireApp.firestore().settings({ timestampsInSnapshots: true });
-fireApp.firestore().enablePersistence();
+const DB = firebase.firestore();
 
-const DB = fireApp.firestore();
+const AUTH_UI = new firebaseui.auth.AuthUI(firebase.auth());
 
 export default ({ Vue }) => {
-  Vue.prototype.$auth = AUTH;
+  Vue.prototype.$authUI = AUTH_UI;
+  Vue.prototype.$firebase = firebase;
   Vue.prototype.$firestore = DB;
 };

@@ -1,66 +1,80 @@
 <template>
   <q-page padding>
-    <h1>Login</h1>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css"
+    />
+    <img
+      class="logo"
+      src="~/assets/logo.png"
+    />
     <div id="firebaseui-auth-container"></div>
   </q-page>
 </template>
 
 <script>
-import * as firebaseui from 'firebaseui';
+import { mapActions } from 'vuex';
 
 export default {
   // name: 'PageName'
 
-  beforeMount() {
+  mounted() {
     this.initialize();
   },
 
   methods: {
-    // async login() {
-    //   const baseProvider = new this.$auth.GoogleAuthProvider();
+    ...mapActions('user', [
+      'createUser',
+      'updateProfile',
+    ]),
 
-    //   try {
-    //     await this.$auth().signInWithPopup(baseProvider);
-    //     this.$router.replace('/');
-    //   } catch (err) {
-    //     console.log(err);
-    //     this.$q.dialog({
-    //       message: 'Erro com login',
-    //     });
-    //   }
-    // },
+    async setUserData(data) {
+      if (data.additionalUserInfo.isNewUser) {
+        await this.createUser(data.user);
+        this.$router.push({ name: 'settings' });
+      } else {
+        await this.updateProfile(data.user);
+        this.$router.push({ name: 'summary' });
+      }
+    },
 
     initialize() {
       const uiConfig = {
-        signInSuccessUrl: '/',
+        signInFlow: 'popup',
         signInOptions: [
-          // Leave the lines as is for the providers you want to offer your users.
-          // this.$auth.GoogleAuthProvider.PROVIDER_ID,
-          // this.$auth.FacebookAuthProvider.PROVIDER_ID,
-          // this.$auth.TwitterAuthProvider.PROVIDER_ID,
-          // this.$auth.GithubAuthProvider.PROVIDER_ID,
-          this.$auth.EmailAuthProvider.PROVIDER_ID,
-          // this.$auth.PhoneAuthProvider.PROVIDER_ID,
-          // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
+          {
+            provider: this.$firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          },
+          {
+            provider: this.$firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          },
         ],
-        // tosUrl and privacyPolicyUrl accept either url string or a callback
-        // function.
-        // Terms of service url/callback.
-        tosUrl: '<your-tos-url>',
-        // Privacy policy url/callback.
-        privacyPolicyUrl: () => {
-          window.location.assign('<your-privacy-policy-url>');
+        tosUrl: 'https://developers.google.com',
+        privacyPolicyUrl: 'https://developers.google.com',
+        callbacks: {
+          signInSuccessWithAuthResult: (authResult) => {
+            this.setUserData(authResult);
+            return false;
+          },
+          signInFailure: (err) => {
+            this.$q.notify(err.message);
+          },
         },
       };
 
-      // Initialize the FirebaseUI Widget using Firebase.
-      const ui = new firebaseui.auth.AuthUI(this.$auth);
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
+      this.$authUI.start('#firebaseui-auth-container', uiConfig);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50%;
+  height: auto;
+}
 </style>

@@ -14,6 +14,7 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/default.vue'),
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',
@@ -25,6 +26,7 @@ const routes = [
   {
     path: '/registros',
     component: () => import('layouts/records.vue'),
+    meta: { requiresAuth: true },
     children: [
       { path: '', name: 'records', component: () => import('pages/records/index.vue') },
     ],
@@ -33,15 +35,18 @@ const routes = [
     path: '/registros/novo',
     name: 'new',
     component: () => import('pages/records/new.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/registros/:id',
     name: 'edit',
     component: () => import('pages/records/edit.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/configuracoes',
     component: () => import('layouts/settings.vue'),
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',

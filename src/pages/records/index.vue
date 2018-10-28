@@ -100,6 +100,10 @@ export default {
   computed: {
     ...mapGetters('record', ['records']),
 
+    ...mapGetters('user', [
+      'uid',
+    ]),
+
     ordenedRecords() {
       return _.orderBy(this.records, 'date', 'desc');
     },
@@ -130,7 +134,7 @@ export default {
       try {
         await this.deleteRecord({
           record,
-          userId: 'jp@email.com',
+          userId: this.uid,
         });
         this.$q.notify({
           type: 'info',

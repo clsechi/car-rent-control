@@ -25,9 +25,14 @@ export default {
     };
   },
 
+  created() {
+    this.updateStatus();
+    this.addEventHandlers();
+  },
+
   methods: {
     ...mapActions('user', [
-      'getUser',
+      'getSettings',
     ]),
 
     updateStatus() {
@@ -40,12 +45,21 @@ export default {
     },
   },
 
-  async created() {
-    this.updateStatus();
-    this.addEventHandlers();
-
-    await this.getUser('jp@email.com');
+  computed: {
+    currentUser() {
+      return this.$firebase.auth().currentUser;
+    },
   },
+
+  watch: {
+    currentUser() {
+      debugger;
+      if (this.currentUser) {
+        this.getSettings();
+      }
+    },
+  },
+
 };
 </script>
 

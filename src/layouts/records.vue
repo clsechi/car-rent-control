@@ -44,6 +44,10 @@ export default {
 
   computed: {
     ...mapGetters('record', ['records']),
+
+    ...mapGetters('user', [
+      'uid',
+    ]),
   },
 
   methods: {
@@ -53,7 +57,7 @@ export default {
   },
 
   async created() {
-    await this.getRecords('jp@email.com');
+    await this.getRecords(this.uid);
     this.loading = false;
   },
 };

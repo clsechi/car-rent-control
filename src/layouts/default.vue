@@ -30,8 +30,8 @@
           >
         </div>
         <div class="col-12">
-          <span class="q-title capitalize block">João Paulo</span>
-        <small class="q-caption">jp@email.com</small>
+          <span class="q-title capitalize block">{{ this.profile.displayName }}</span>
+        <small class="q-caption">{{ this.profile.email }}</small>
         </div>
       </div>
       <q-list highligth link>
@@ -47,7 +47,7 @@
           <q-item-side icon="settings"/>
           <q-item-main label="Configurações"/>
         </q-item>
-        <q-item class="fixed-bottom" sparse>
+        <q-item class="fixed-bottom" sparse @click.native="signOut">
           <q-item-side icon="exit_to_app"/>
           <q-item-main label="Sair"/>
         </q-item>
@@ -81,14 +81,24 @@ export default {
     ...mapActions('record', [
       'getWeekRecords',
     ]),
+
+    signOut() {
+      this.$auth().signOut();
+      this.$router.push('/login');
+    },
   },
 
   computed: {
     ...mapGetters('record', ['weekRecords']),
+
+    ...mapGetters('user', [
+      'profile',
+      'uid',
+    ]),
   },
 
   async created() {
-    await this.getWeekRecords('jp@email.com');
+    await this.getWeekRecords(this.uid);
     this.loading = false;
   },
 };
