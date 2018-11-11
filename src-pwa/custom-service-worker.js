@@ -2,18 +2,21 @@
 /* eslint-env serviceworker */
 /* eslint-disable no-underscore-dangle, no-restricted-globals */
 
-workbox.core.setCacheNameDetails({ prefix: 'car-rent-control' });
+workbox.core.setCacheNameDetails({
+  prefix: 'car-rent-control',
+  suffix: 'v0.0.1',
+});
 
 workbox.googleAnalytics.initialize();
-
-workbox.routing.registerRoute(/.*api\.adorable\.io.*$/, workbox.strategies.staleWhileRevalidate({
-  cacheName: 'avatar',
-}));
 
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/.*api\.adorable\.io.*$/, workbox.strategies.staleWhileRevalidate({
+  cacheName: 'avatar',
+}));
 
 // workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
 

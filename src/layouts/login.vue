@@ -9,6 +9,12 @@
 <script>
 export default {
   // name: 'LayoutName',
+
+  preFetch({ store, redirect }) {
+    store.state.$firebase.auth().onAuthStateChanged((user) => {
+      if (!user) redirect('/login');
+    });
+  },
 };
 </script>
 

@@ -8,14 +8,24 @@ const onThisWeek = (record) => {
 };
 
 export const createRecord = async ({ rootGetters, commit, dispatch }, payload) => {
-  const recordId = payload.id ? payload.id : Date.now().toString();
   await Vue.prototype.$firestore
     .collection('users').doc(rootGetters['user/uid'])
-    .collection('records').doc(recordId)
+    .collection('records').doc()
     .set(payload, { merge: true });
-  commit('createRecord', payload);
 
   if (onThisWeek(payload)) commit('addWeekRecord', payload);
+
+  dispatch('status/updateStatus', {}, { root: true });
+};
+
+export const updateRecord = async ({ rootGetters, commit, dispatch }, record) => {
+  await Vue.prototype.$firestore
+    .collection('users').doc(rootGetters['user/uid'])
+    .collection('records').doc(record.id)
+    .set(record);
+  commit('updateRecord', record);
+
+  if (onThisWeek(record)) commit('updateWeekRecord', record);
 
   dispatch('status/updateStatus', {}, { root: true });
 };

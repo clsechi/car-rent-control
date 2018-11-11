@@ -24,7 +24,7 @@
       <div class="row menu text-weight-medium">
         <div class="col-12">
           <img
-            src="https://api.adorable.io/avatars/285/jp@email.com"
+            :src="avatarSrc"
             alt="avatar"
             class="avatar q-mb-md"
           >
@@ -70,6 +70,11 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'default',
 
+  preFetch({ store }) {
+    console.log(store);
+    // initialize something in store here
+  },
+
   data() {
     return {
       open: true,
@@ -94,6 +99,11 @@ export default {
     ...mapGetters('user', [
       'profile',
     ]),
+
+    avatarSrc() {
+      if (this.profile.photoURL) return this.profile.photoURL;
+      return `https://api.adorable.io/avatars/285/${this.profile.email}`;
+    },
   },
 
   async created() {

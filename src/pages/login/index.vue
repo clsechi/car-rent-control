@@ -1,10 +1,5 @@
 <template>
   <q-page padding>
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css"
-    />
     <img
       class="logo"
       src="~/assets/logo.png"
@@ -15,6 +10,7 @@
 </template>
 
 <script>
+import * as firebaseui from 'firebaseui';
 import { mapActions } from 'vuex';
 
 export default {
@@ -52,6 +48,7 @@ export default {
           },
           this.$firebase.auth.EmailAuthProvider.PROVIDER_ID,
         ],
+        credentialHelper: firebaseui.auth.CredentialHelper.NONE,
         tosUrl: 'https://developers.google.com',
         privacyPolicyUrl: 'https://developers.google.com',
         callbacks: {
@@ -72,6 +69,8 @@ export default {
 </script>
 
 <style scoped>
+@import url(https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css);
+
 .title {
   font-weight: 800;
 }
@@ -81,6 +80,6 @@ export default {
   margin-left: auto;
   margin-right: auto;
   max-width: 50%;
-  height: auto;
+  max-height: 300px;
 }
 </style>

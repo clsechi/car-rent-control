@@ -3,8 +3,8 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
-      'Logger',
       'Firebase',
+      'Logger',
       'Vuelidate',
     ],
     css: [
@@ -96,6 +96,7 @@ module.exports = function (ctx) {
     ssr: {
       pwa: false
     },
+    preFetch: true,
     pwa: {
       workboxPluginMode: 'InjectManifest',
       workboxOptions: {
@@ -104,7 +105,7 @@ module.exports = function (ctx) {
       },
       manifest: {
         name: 'Controle de Aluguel',
-        short_name: 'Aluguel Carro',
+        short_name: 'Controle Aluguel',
         description: 'Tenha controle do aluguel do seu carro, para quem trabalha com Uber/99',
         display: 'standalone',
         orientation: 'portrait',

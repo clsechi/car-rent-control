@@ -14,8 +14,6 @@ const config = {
 
 firebase.initializeApp(config);
 
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
 firebase.firestore().settings({ timestampsInSnapshots: true });
 firebase.firestore().enablePersistence();
 
