@@ -22,7 +22,7 @@
       <record-form
         title="Novo registro"
         label="Criar novo registro"
-        message="Produto criado com sucesso"
+        message="Registro criado com sucesso"
       />
     </q-page-container>
   </q-layout>

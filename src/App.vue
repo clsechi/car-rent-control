@@ -39,27 +39,23 @@ export default {
       this.offline = !navigator.onLine;
     },
 
+    async loadSettings(uid) {
+      try {
+        await this.getSettings(uid);
+      } catch (err) {
+        this.$log.error('loadSettings', err);
+      }
+    },
+
     addEventHandlers() {
       window.addEventListener('online', this.updateStatus);
       window.addEventListener('offline', this.updateStatus);
+
+      this.$firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) await this.loadSettings(user.uid);
+      });
     },
   },
-
-  computed: {
-    currentUser() {
-      return this.$firebase.auth().currentUser;
-    },
-  },
-
-  watch: {
-    currentUser() {
-      debugger;
-      if (this.currentUser) {
-        this.getSettings();
-      }
-    },
-  },
-
 };
 </script>
 

@@ -44,10 +44,6 @@ export default {
 
   computed: {
     ...mapGetters('record', ['records']),
-
-    ...mapGetters('user', [
-      'uid',
-    ]),
   },
 
   methods: {
@@ -57,7 +53,7 @@ export default {
   },
 
   async created() {
-    await this.getRecords(this.uid);
+    await this.getRecords();
     this.loading = false;
   },
 };

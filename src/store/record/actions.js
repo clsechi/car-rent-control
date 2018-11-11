@@ -7,11 +7,12 @@ const onThisWeek = (record) => {
   return record.date >= weekStart && record.date <= weekEnd;
 };
 
-export const createRecord = async ({ commit, dispatch }, { payload, userId }) => {
+export const createRecord = async ({ rootGetters, commit, dispatch }, payload) => {
+  const recordId = payload.id ? payload.id : Date.now().toString();
   await Vue.prototype.$firestore
-    .collection('users').doc(userId)
-    .collection('records').doc()
-    .set(payload);
+    .collection('users').doc(rootGetters['user/uid'])
+    .collection('records').doc(recordId)
+    .set(payload, { merge: true });
   commit('createRecord', payload);
 
   if (onThisWeek(payload)) commit('addWeekRecord', payload);
@@ -19,21 +20,9 @@ export const createRecord = async ({ commit, dispatch }, { payload, userId }) =>
   dispatch('status/updateStatus', {}, { root: true });
 };
 
-export const updateRecord = async ({ commit, dispatch }, { record, userId }) => {
+export const deleteRecord = async ({ rootGetters, commit, dispatch }, record) => {
   await Vue.prototype.$firestore
-    .collection('users').doc(userId)
-    .collection('records').doc(record.id)
-    .set(record);
-  commit('updateRecord', record);
-
-  if (onThisWeek(record)) commit('updateWeekRecord', record);
-
-  dispatch('status/updateStatus', {}, { root: true });
-};
-
-export const deleteRecord = async ({ commit, dispatch }, { record, userId }) => {
-  await Vue.prototype.$firestore
-    .collection('users').doc(userId)
+    .collection('users').doc(rootGetters['user/uid'])
     .collection('records').doc(record.id)
     .delete();
   commit('deleteRecord', record.id);
@@ -43,11 +32,16 @@ export const deleteRecord = async ({ commit, dispatch }, { record, userId }) => 
   dispatch('status/updateStatus', {}, { root: true });
 };
 
-export const getWeekRecords = async ({ state, commit, dispatch }, userId) => {
+export const getWeekRecords = async ({
+  rootGetters,
+  state,
+  commit,
+  dispatch,
+}) => {
   if (state.records.week.length > 0) return;
 
   const snapshot = await Vue.prototype.$firestore
-    .collection('users').doc(userId)
+    .collection('users').doc(rootGetters['user/uid'])
     .collection('records')
     .where('date', '>=', moment().startOf('isoWeek').toDate())
     .where('date', '<=', moment().endOf('isoWeek').toDate())
@@ -63,11 +57,11 @@ export const getWeekRecords = async ({ state, commit, dispatch }, userId) => {
   dispatch('status/updateStatus', {}, { root: true });
 };
 
-export const getRecords = async ({ state, commit }, userId) => {
+export const getRecords = async ({ rootGetters, state, commit }) => {
   if (state.records.all.length > 0) return;
 
   const snapshot = await Vue.prototype.$firestore
-    .collection('users').doc(userId)
+    .collection('users').doc(rootGetters['user/uid'])
     .collection('records')
     .get();
   const result = snapshot.docs.map((doc) => {

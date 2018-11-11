@@ -22,7 +22,7 @@
       <record-form
         title="Editar registro"
         label="Atualizar registro"
-        message="Produto atualizado com sucesso"
+        message="Registro atualizado com sucesso"
         :id="id"
       />
     </q-page-container>

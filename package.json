@@ -19,6 +19,7 @@
     "firebaseui": "^3.4.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
+    "vuejs-logger": "^1.5.3",
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {

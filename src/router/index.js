@@ -23,6 +23,7 @@ export default function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
     const { currentUser } = Vue.prototype.$firebase.auth();
+    Vue.$log.debug('CurrentUser', currentUser);
     if (to.matched.some(record => record.meta.requiresAuth)) {
       // this route requires auth, check if logged in
       // if not, redirect to login page.

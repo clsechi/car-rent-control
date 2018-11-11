@@ -190,28 +190,19 @@ export default {
       }
       this.loading = true;
       try {
-        if (this.id) {
-          await this.updateRecord({
-            payload: this.form,
-            userId: 'jp@email.com',
-          });
-        } else {
-          await this.createRecord({
-            payload: this.form,
-            userId: 'jp@email.com',
-          });
-        }
+        await this.createRecord(this.form);
         this.$q.notify({
           type: 'positive',
           message: this.message,
         });
         this.$router.go(-1);
       } catch (err) {
-        this.loading = false;
+        this.$log.error('validateAndCreateRecord', err);
         this.$q.notify({
           message: 'Ocorreu um erro!',
         });
       }
+      this.loading = false;
     },
   },
 };

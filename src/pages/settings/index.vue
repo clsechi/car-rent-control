@@ -187,17 +187,13 @@ export default {
       }
       this.loading = true;
       try {
-        await this.updateSettings({
-          payload: {
-            settings: this.form,
-          },
-          userId: 'jp@email.com',
-        });
+        await this.updateSettings({ settings: this.form });
         this.$q.notify({
           type: 'positive',
           message: 'Configurações atualizadas com sucesso',
         });
       } catch (err) {
+        this.$log.error('validateAndUpdateSettings', err);
         this.$q.notify({
           message: 'Ocorreu um erro!',
         });

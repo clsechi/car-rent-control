@@ -9,6 +9,7 @@
       class="logo"
       src="~/assets/logo.png"
     />
+    <h3 class="text-center title">CONTROLE DE ALUGUEL</h3>
     <div id="firebaseui-auth-container"></div>
   </q-page>
 </template>
@@ -49,6 +50,7 @@ export default {
           {
             provider: this.$firebase.auth.FacebookAuthProvider.PROVIDER_ID,
           },
+          this.$firebase.auth.EmailAuthProvider.PROVIDER_ID,
         ],
         tosUrl: 'https://developers.google.com',
         privacyPolicyUrl: 'https://developers.google.com',
@@ -70,6 +72,10 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  font-weight: 800;
+}
+
 .logo {
   display: block;
   margin-left: auto;

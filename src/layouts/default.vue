@@ -83,7 +83,7 @@ export default {
     ]),
 
     signOut() {
-      this.$auth().signOut();
+      this.$firebase.auth().signOut();
       this.$router.push('/login');
     },
   },
@@ -93,12 +93,11 @@ export default {
 
     ...mapGetters('user', [
       'profile',
-      'uid',
     ]),
   },
 
   async created() {
-    await this.getWeekRecords(this.uid);
+    await this.getWeekRecords();
     this.loading = false;
   },
 };

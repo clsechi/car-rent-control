@@ -100,10 +100,6 @@ export default {
   computed: {
     ...mapGetters('record', ['records']),
 
-    ...mapGetters('user', [
-      'uid',
-    ]),
-
     ordenedRecords() {
       return _.orderBy(this.records, 'date', 'desc');
     },
@@ -132,15 +128,13 @@ export default {
 
     async deleteActualRecord(record) {
       try {
-        await this.deleteRecord({
-          record,
-          userId: this.uid,
-        });
+        await this.deleteRecord(record);
         this.$q.notify({
           type: 'info',
           message: 'Registro excluído',
         });
       } catch (err) {
+        this.$log.error('deleteActualRecord', err);
         this.$q.notify({
           message: 'Ocorreu um erro!',
         });
