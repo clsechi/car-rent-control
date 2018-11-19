@@ -6,8 +6,8 @@ export const updateSettings = async ({ state, commit }, payload) => {
   commit('setSettings', payload);
 };
 
-export const getSettings = async ({ commit }, uid) => {
-  const snapshot = await Vue.prototype.$firestore.collection('users').doc(uid).get();
+export const getSettings = async ({ state, commit }) => {
+  const snapshot = await Vue.prototype.$firestore.collection('users').doc(state.user.uid).get();
   const result = snapshot.data();
   commit('setSettings', result);
 };

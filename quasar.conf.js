@@ -1,6 +1,7 @@
 /* eslint-disable */
 module.exports = function (ctx) {
   return {
+    preFetch: true,
     // app plugins (/src/plugins)
     plugins: [
       'Logger',

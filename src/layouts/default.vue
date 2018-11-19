@@ -70,6 +70,13 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'default',
 
+  preFetch({ store }) {
+    if (!store.state.user.settings) {
+      return store.dispatch('user/getSettings');
+    }
+    return false;
+  },
+
   data() {
     return {
       open: true,

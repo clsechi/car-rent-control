@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import * as firebaseui from 'firebaseui';
 import { mapActions } from 'vuex';
 
 export default {
@@ -52,6 +53,7 @@ export default {
           },
           this.$firebase.auth.EmailAuthProvider.PROVIDER_ID,
         ],
+        credentialHelper: firebaseui.auth.CredentialHelper.NONE,
         tosUrl: 'https://developers.google.com',
         privacyPolicyUrl: 'https://developers.google.com',
         callbacks: {
