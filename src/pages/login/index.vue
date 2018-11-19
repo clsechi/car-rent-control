@@ -41,12 +41,12 @@ export default {
         signInFlow: 'popup',
         signInOptions: [
           {
-            provider: this.$firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            provider: this.$store.state.$firebase.auth.GoogleAuthProvider.PROVIDER_ID,
           },
           {
-            provider: this.$firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            provider: this.$store.state.$firebase.auth.FacebookAuthProvider.PROVIDER_ID,
           },
-          this.$firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          this.$store.state.$firebase.auth.EmailAuthProvider.PROVIDER_ID,
         ],
         credentialHelper: firebaseui.auth.CredentialHelper.NONE,
         tosUrl: 'https://developers.google.com',
@@ -62,7 +62,7 @@ export default {
         },
       };
 
-      this.$authUI.start('#firebaseui-auth-container', uiConfig);
+      this.$store.state.$authUI.start('#firebaseui-auth-container', uiConfig);
     },
   },
 };

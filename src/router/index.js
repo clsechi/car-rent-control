@@ -20,25 +20,5 @@ export default function (/* { store, ssrContext } */) {
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE,
   });
-
-  Router.beforeEach((to, from, next) => {
-    const { currentUser } = Vue.prototype.$firebase.auth();
-    Vue.$log.debug('CurrentUser', currentUser);
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-      // this route requires auth, check if logged in
-      // if not, redirect to login page.
-      if (!currentUser) {
-        next({
-          path: '/login',
-          query: { redirect: to.fullPath },
-        });
-      } else {
-        next();
-      }
-    } else {
-      next(); // make sure to always call next()!
-    }
-  });
-
   return Router;
 }

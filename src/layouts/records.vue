@@ -35,10 +35,20 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   // name: 'LayoutName',
 
+  preFetch({ store, redirect }) {
+    store.state.$firebase.auth().onAuthStateChanged((user) => {
+      console.log('state changed', user);
+      if (!user) return redirect('/login');
+
+      store.commit('user/setData', Object.assign({}, user));
+      return store.dispatch('record/getRecords', user.uid);
+    });
+  },
+
   data() {
     return {
       open: true,
-      loading: true,
+      loading: false,
     };
   },
 
@@ -50,11 +60,6 @@ export default {
     ...mapActions('record', [
       'getRecords',
     ]),
-  },
-
-  async created() {
-    await this.getRecords();
-    this.loading = false;
   },
 };
 </script>

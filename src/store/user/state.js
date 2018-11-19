@@ -1,7 +1,19 @@
 export default {
   user: {
-    profile: null,
-    settings: null,
+    profile: {
+      photoURL: null,
+    },
+    settings: {
+      car: {
+        km: {
+          allowed: null,
+        },
+      },
+      rental: {
+        costs: null,
+      },
+      costs: null,
+    },
     uid: null,
   },
 };

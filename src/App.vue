@@ -14,10 +14,42 @@
 </template>
 
 <script>
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import * as firebaseui from 'firebaseui';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
+
+  preFetch({ store }) {
+    // TODO: SET PRODUCTION CONFIG WHEN CI PUSHES TO PRODUCTION
+    // const config = (process.env.DEV) ? configs.dev : configs.prod;
+    const config = {
+      apiKey: 'AIzaSyDz7HEWdU8GHO70NbGmH2DZfvyaGEzITYQ',
+      authDomain: 'car-rent-control.firebaseapp.com',
+      databaseURL: 'https://car-rent-control.firebaseio.com',
+      projectId: 'car-rent-control',
+      storageBucket: 'car-rent-control.appspot.com',
+      messagingSenderId: '64153021131',
+    };
+
+    firebase.initializeApp(config);
+
+    firebase.firestore().settings({ timestampsInSnapshots: true });
+    firebase.firestore().enablePersistence();
+
+    const DB = firebase.firestore();
+
+    const AUTH_UI = new firebaseui.auth.AuthUI(firebase.auth());
+
+    Object.assign(store.state, {
+      $authUI: AUTH_UI,
+      $firestore: DB,
+      $firebase: firebase,
+    });
+  },
 
   data() {
     return {
@@ -51,9 +83,10 @@ export default {
       window.addEventListener('online', this.updateStatus);
       window.addEventListener('offline', this.updateStatus);
 
-      this.$firebase.auth().onAuthStateChanged(async (user) => {
-        if (user) await this.loadSettings(user.uid);
-      });
+      // this.$store.$firebase.auth().onAuthStateChanged(async (user) => {
+      //   this.$log.debug('currentUser', user);
+      //   if (user) await this.loadSettings(user.uid);
+      // });
     },
   },
 };

@@ -19,6 +19,7 @@ export default function (/* { ssrContext } */) {
       user,
       status,
     },
+    // strict: process.env.NODE_ENV !== 'production',
   });
 
   return Store;

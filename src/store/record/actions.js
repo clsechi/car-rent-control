@@ -8,7 +8,7 @@ const onThisWeek = (record) => {
 };
 
 export const createRecord = async ({ rootGetters, commit, dispatch }, payload) => {
-  await Vue.prototype.$firestore
+  await Vue.prototype.$store.$firestore
     .collection('users').doc(rootGetters['user/uid'])
     .collection('records').doc()
     .set(payload, { merge: true });
@@ -19,7 +19,7 @@ export const createRecord = async ({ rootGetters, commit, dispatch }, payload) =
 };
 
 export const updateRecord = async ({ rootGetters, commit, dispatch }, record) => {
-  await Vue.prototype.$firestore
+  await Vue.prototype.$store.$firestore
     .collection('users').doc(rootGetters['user/uid'])
     .collection('records').doc(record.id)
     .set(record);
@@ -31,7 +31,7 @@ export const updateRecord = async ({ rootGetters, commit, dispatch }, record) =>
 };
 
 export const deleteRecord = async ({ rootGetters, commit, dispatch }, record) => {
-  await Vue.prototype.$firestore
+  await Vue.prototype.$store.$firestore
     .collection('users').doc(rootGetters['user/uid'])
     .collection('records').doc(record.id)
     .delete();
@@ -43,15 +43,15 @@ export const deleteRecord = async ({ rootGetters, commit, dispatch }, record) =>
 };
 
 export const getWeekRecords = async ({
-  rootGetters,
+  rootState,
   state,
   commit,
   dispatch,
 }) => {
   if (state.records.week.length > 0) return;
 
-  const snapshot = await Vue.prototype.$firestore
-    .collection('users').doc(rootGetters['user/uid'])
+  const snapshot = await rootState.$firestore
+    .collection('users').doc(rootState.$firebase.auth().currentUser.uid)
     .collection('records')
     .where('date', '>=', moment().startOf('isoWeek').toDate())
     .where('date', '<=', moment().endOf('isoWeek').toDate())
@@ -67,10 +67,12 @@ export const getWeekRecords = async ({
   dispatch('status/updateStatus', {}, { root: true });
 };
 
-export const getRecords = async ({ rootGetters, state, commit }) => {
+export const getRecords = async ({
+  rootState, rootGetters, state, commit,
+}) => {
   if (state.records.all.length > 0) return;
 
-  const snapshot = await Vue.prototype.$firestore
+  const snapshot = await rootState.$firestore
     .collection('users').doc(rootGetters['user/uid'])
     .collection('records')
     .get();

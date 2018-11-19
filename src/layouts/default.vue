@@ -65,30 +65,36 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'default',
 
-  preFetch({ store }) {
-    console.log(store);
-    // initialize something in store here
+  preFetch({ store, redirect }) {
+    // return store.state.$firebase.auth().onAuthStateChanged((user) => {
+    //   console.log('state changed', user);
+    //   if (!user) redirect('/login');
+    //   // return store.dispatch('user/updateProfile', user);
+    // });
+    store.state.$firebase.auth().onAuthStateChanged((user) => {
+      console.log('state changed', user);
+      if (!user) return redirect('/login');
+
+      store.commit('user/setData', Object.assign({}, user));
+      return store.dispatch('user/getSettings', user.uid);
+    });
+    // store.commit('user/setData', currentUser);
   },
 
   data() {
     return {
       open: true,
-      loading: true,
     };
   },
 
   methods: {
-    ...mapActions('record', [
-      'getWeekRecords',
-    ]),
-
     signOut() {
-      this.$firebase.auth().signOut();
+      this.$store.state.$firebase.auth().signOut();
       this.$router.push('/login');
     },
   },
@@ -98,17 +104,17 @@ export default {
 
     ...mapGetters('user', [
       'profile',
+      'uid',
     ]),
 
     avatarSrc() {
       if (this.profile.photoURL) return this.profile.photoURL;
       return `https://api.adorable.io/avatars/285/${this.profile.email}`;
     },
-  },
 
-  async created() {
-    await this.getWeekRecords();
-    this.loading = false;
+    loading() {
+      return Boolean(!this.uid);
+    },
   },
 };
 </script>
