@@ -84,6 +84,7 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Dialog',
+        'Loading',
       ],
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       i18n: 'pt-br',
@@ -105,7 +106,7 @@ module.exports = function (ctx) {
       },
       manifest: {
         name: 'Controle de Aluguel',
-        short_name: 'Aluguel Carro',
+        short_name: 'Controle Aluguel',
         description: 'Tenha controle do aluguel do seu carro, para quem trabalha com Uber/99',
         display: 'standalone',
         orientation: 'portrait',

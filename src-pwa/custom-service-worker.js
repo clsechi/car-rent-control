@@ -6,14 +6,15 @@ workbox.core.setCacheNameDetails({ prefix: 'car-rent-control' });
 
 workbox.googleAnalytics.initialize();
 
-workbox.routing.registerRoute(/.*api\.adorable\.io.*$/, workbox.strategies.staleWhileRevalidate({
-  cacheName: 'avatar',
-}));
-
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 
 workbox.precaching.suppressWarnings();
+
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/.*api\.adorable\.io.*$/, workbox.strategies.staleWhileRevalidate({
+  cacheName: 'avatar',
+}));
 
 // workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
 

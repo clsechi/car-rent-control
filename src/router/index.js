@@ -25,7 +25,7 @@ Router.beforeEach((to, from, next) => {
   Vue.prototype.$firebase.auth().onAuthStateChanged((currentUser) => {
     Vue.$log.debug('CurrentUser', currentUser);
 
-    store.commit('user/setData', currentUser);
+    if (currentUser) store.commit('user/setData', currentUser);
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
       // this route requires auth, check if logged in

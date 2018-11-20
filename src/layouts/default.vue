@@ -24,7 +24,7 @@
       <div class="row menu text-weight-medium">
         <div class="col-12">
           <img
-            src="https://api.adorable.io/avatars/285/jp@email.com"
+            :src="avatarSrc"
             alt="avatar"
             class="avatar q-mb-md"
           >
@@ -56,22 +56,23 @@
 
     <q-page-container>
       <router-view />
-
-      <q-inner-loading :visible="loading">
-        <q-spinner size="50px" color="primary"></q-spinner>
-      </q-inner-loading>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { Loading } from 'quasar';
 
 export default {
   name: 'default',
 
   preFetch({ store }) {
-    if (!store.state.user.settings) {
+    Loading.show({
+      message: 'Carregando...',
+      customClass: 'bg-primary',
+    });
+    if (!store.getters['user/settings']) {
       return store.dispatch('user/getSettings');
     }
     return false;
@@ -80,7 +81,6 @@ export default {
   data() {
     return {
       open: true,
-      loading: true,
     };
   },
 
@@ -101,11 +101,16 @@ export default {
     ...mapGetters('user', [
       'profile',
     ]),
+
+    avatarSrc() {
+      if (this.profile.photoURL) return this.profile.photoURL;
+      return `https://api.adorable.io/avatars/285/${this.profile.email}`;
+    },
   },
 
   async created() {
     await this.getWeekRecords();
-    this.loading = false;
+    Loading.hide();
   },
 };
 </script>

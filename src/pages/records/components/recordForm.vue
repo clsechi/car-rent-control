@@ -190,7 +190,11 @@ export default {
       }
       this.loading = true;
       try {
-        await this.createRecord(this.form);
+        if (this.id) {
+          await this.updateRecord(this.form);
+        } else {
+          await this.createRecord(this.form);
+        }
         this.$q.notify({
           type: 'positive',
           message: this.message,
