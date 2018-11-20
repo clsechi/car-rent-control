@@ -19,6 +19,7 @@
               format="dddd, DD/MM/YYYY"
               @blur="$v.form.date.$touch"
               inverted-light
+              dark
               color="grey-4"
             />
           </q-field>

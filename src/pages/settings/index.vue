@@ -20,6 +20,7 @@
           <q-item-tile sublabel>{{ form.car.km.actual }} km</q-item-tile>
           <q-popup-edit
             v-model="form.car.km.actual"
+            persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
@@ -36,6 +37,7 @@
           <q-item-tile sublabel>{{ form.car.km.allowed }} km</q-item-tile>
           <q-popup-edit
             v-model="form.car.km.allowed"
+            persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
@@ -52,6 +54,7 @@
           <q-item-tile sublabel>R$ {{ form.rental.cost }}</q-item-tile>
           <q-popup-edit
             v-model="form.rental.cost"
+            persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
@@ -68,6 +71,7 @@
           <q-item-tile sublabel>R$ {{ form.rental.exceeded }}</q-item-tile>
           <q-popup-edit
             v-model="form.rental.exceeded"
+            persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
@@ -84,6 +88,7 @@
           <q-item-tile sublabel>R$ {{ form.costs }}</q-item-tile>
           <q-popup-edit
             v-model="form.costs"
+            persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
@@ -100,11 +105,17 @@
           <q-item-tile sublabel>{{ form.car.plate }}</q-item-tile>
           <q-popup-edit
             v-model="form.car.plate"
+            persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
           >
-            <q-input type="text" v-model="form.car.plate" />
+            <q-input
+            type="text"
+            v-model="form.car.plate"
+            :maxlength="8"
+            upper-case
+            />
           </q-popup-edit>
         </q-item-main>
       </q-item>
