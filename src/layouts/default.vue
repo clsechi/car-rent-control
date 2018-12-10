@@ -68,11 +68,11 @@ export default {
   name: 'default',
 
   preFetch({ store }) {
-    Loading.show({
-      message: 'Carregando...',
-      customClass: 'bg-primary',
-    });
-    if (!store.getters['user/settings']) {
+    if (!store.getters['user/rental']) {
+      Loading.show({
+        message: 'Carregando...',
+        customClass: 'bg-primary',
+      });
       return store.dispatch('user/getSettings');
     }
     return false;

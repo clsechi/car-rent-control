@@ -34,15 +34,15 @@
         </q-item-side>
         <q-item-main>
           <q-item-tile label>Quilometragem semanal permitida</q-item-tile>
-          <q-item-tile sublabel>{{ form.car.km.allowed }} km</q-item-tile>
+          <q-item-tile sublabel>{{ form.rental.km.allowed }} km</q-item-tile>
           <q-popup-edit
-            v-model="form.car.km.allowed"
+            v-model="form.rental.km.allowed"
             persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
           >
-            <q-input type="number" v-model="form.car.km.allowed" />
+            <q-input type="number" v-model="form.rental.km.allowed" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -50,16 +50,16 @@
         <q-item-side>
         </q-item-side>
         <q-item-main>
-          <q-item-tile label>Custo carro por semana</q-item-tile>
-          <q-item-tile sublabel>R$ {{ form.rental.cost }}</q-item-tile>
+          <q-item-tile label>Custo do aluguel por semana</q-item-tile>
+          <q-item-tile sublabel>R$ {{ form.rental.costs.week }}</q-item-tile>
           <q-popup-edit
-            v-model="form.rental.cost"
+            v-model="form.rental.costs.week"
             persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
           >
-            <q-input type="number" v-model="form.rental.cost" />
+            <q-input type="number" v-model="form.rental.costs.week" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -67,16 +67,16 @@
         <q-item-side>
         </q-item-side>
         <q-item-main>
-          <q-item-tile label>Custo por quilômetro excedido</q-item-tile>
-          <q-item-tile sublabel>R$ {{ form.rental.exceeded }}</q-item-tile>
+          <q-item-tile label>Custo por KM excedido</q-item-tile>
+          <q-item-tile sublabel>R$ {{ form.rental.costs.exceeded }}</q-item-tile>
           <q-popup-edit
-            v-model="form.rental.exceeded"
+            v-model="form.rental.costs.exceeded"
             persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
           >
-            <q-input type="number" v-model="form.rental.exceeded" />
+            <q-input type="number" v-model="form.rental.costs.exceeded" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -85,15 +85,15 @@
         </q-item-side>
         <q-item-main>
           <q-item-tile label>Outros custos semanais</q-item-tile>
-          <q-item-tile sublabel>R$ {{ form.costs }}</q-item-tile>
+          <q-item-tile sublabel>R$ {{ form.personal.costs }}</q-item-tile>
           <q-popup-edit
-            v-model="form.costs"
+            v-model="form.personal.costs"
             persistent
             buttons
             label-set="Salvar"
             @save="validateAndUpdateSettings"
           >
-            <q-input type="number" v-model="form.costs" />
+            <q-input type="number" v-model="form.personal.costs" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -134,17 +134,27 @@ export default {
     return {
       form: {
         car: {
+          nickname: null,
+          plate: null,
           km: {
-            actual: '',
-            allowed: '',
+            actual: null,
           },
-          plate: '',
         },
         rental: {
-          cost: '',
-          exceeded: '',
+          costs: {
+            week: null,
+            exceeded: null,
+          },
+          km: {
+            hasLimit: false,
+            allowed: null,
+          },
         },
-        costs: '',
+        personal: {
+          costs: null,
+          startHour: null,
+          endHour: null,
+        },
       },
       loading: false,
     };
@@ -152,14 +162,14 @@ export default {
 
   validations: {
     form: {
-      car: {
+      rental: {
+        costs: {
+          week: { required },
+          exceeded: { required },
+        },
         km: {
           allowed: { required },
         },
-      },
-      rental: {
-        cost: { required },
-        exceeded: { required },
       },
     },
   },
@@ -180,7 +190,7 @@ export default {
 
   methods: {
     ...mapActions('user', [
-      'updateSettings',
+      'setSettings',
     ]),
 
     updateForm() {
@@ -198,7 +208,7 @@ export default {
       }
       this.loading = true;
       try {
-        await this.updateSettings({ settings: this.form });
+        await this.setSettings(this.form);
         this.$q.notify({
           type: 'positive',
           message: 'Configurações atualizadas com sucesso',

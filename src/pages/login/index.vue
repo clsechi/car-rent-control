@@ -22,17 +22,15 @@ export default {
 
   methods: {
     ...mapActions('user', [
-      'createUser',
       'updateProfile',
     ]),
 
     async setUserData(data) {
       if (data.additionalUserInfo.isNewUser) {
-        await this.createUser(data.user);
-        this.$router.push({ name: 'settings' });
+        this.$router.push({ name: 'profile' });
       } else {
-        await this.updateProfile(data.user);
         this.$router.push({ name: 'summary' });
+        await this.updateProfile(data.user);
       }
     },
 
@@ -79,7 +77,6 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 50%;
-  max-height: 300px;
+  height: 40vh;
 }
 </style>

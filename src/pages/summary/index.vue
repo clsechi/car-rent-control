@@ -10,7 +10,7 @@
       <div class="col-xs-12 col-sm-6">
         <days-card/>
       </div>
-      <div class="col-xs-12 col-sm-6">
+      <div v-if="showDistance" class="col-xs-12 col-sm-6">
         <distance-card/>
       </div>
       <div class="col-xs-12 col-sm-6">
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import costsCard from './components/costsCard.vue';
 import daysCard from './components/daysCard.vue';
 import distanceCard from './components/distanceCard.vue';
@@ -50,6 +52,16 @@ export default {
     'earnings-card': earningsCard,
     'goal-card': goalCard,
     'spending-card': spendingCard,
+  },
+
+  computed: {
+    ...mapGetters('user', [
+      'rental',
+    ]),
+
+    showDistance() {
+      return this.rental.hasLimit;
+    },
   },
 };
 </script>

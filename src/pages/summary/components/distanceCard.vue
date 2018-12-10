@@ -20,7 +20,7 @@ export default {
 
   computed: {
     ...mapGetters('user', [
-      'settings',
+      'rental',
     ]),
 
     ...mapGetters('status', [
@@ -28,7 +28,7 @@ export default {
     ]),
 
     distance() {
-      return this.settings.car.km.allowed - this.status.distance;
+      return this.rental.km.allowed - this.status.distance;
     },
   },
 };

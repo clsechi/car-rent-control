@@ -10,7 +10,7 @@
           dense
           flat
           no-ripple
-          @click="$router.push('/')"
+          @click="$router.push({ name: 'summary' })"
         />
         <q-toolbar-title>
           Configurações

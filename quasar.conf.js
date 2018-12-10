@@ -75,6 +75,10 @@ module.exports = function (ctx) {
         'QInnerLoading',
         'QSpinner',
         'QPopupEdit',
+        'QStepper',
+        'QStep',
+        'QStepperNavigation',
+        'QToggle',
       ],
       directives: [
         'Ripple',
@@ -110,8 +114,8 @@ module.exports = function (ctx) {
         description: 'Tenha controle do aluguel do seu carro, para quem trabalha com Uber/99',
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#000000',
-        theme_color: '#000000',
+        background_color: '#212121',
+        theme_color: '#212121',
         icons: [
           {
             'src': 'statics/icons/android-icon-144x144.png',

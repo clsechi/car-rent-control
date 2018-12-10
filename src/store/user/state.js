@@ -1,7 +1,11 @@
 export default {
   user: {
     profile: null,
-    settings: null,
+    settings: {
+      rental: null,
+      car: null,
+      personal: null,
+    },
     uid: null,
   },
 };

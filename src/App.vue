@@ -5,7 +5,7 @@
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
     >
-      <div class="offline text-center text-weight-medium bg-tertiary q-pb-xs" v-if="offline">
+      <div v-if="offline" class="offline text-center text-weight-medium bg-tertiary q-pb-xs">
         <small>Sem conexão com a Internet</small>
       </div>
     </transition>
@@ -39,9 +39,9 @@ export default {
       this.offline = !navigator.onLine;
     },
 
-    async loadSettings(uid) {
+    async loadSettings() {
       try {
-        await this.getSettings(uid);
+        await this.getSettings();
       } catch (err) {
         this.$log.error('loadSettings', err);
       }
@@ -52,7 +52,7 @@ export default {
       window.addEventListener('offline', this.updateStatus);
 
       this.$firebase.auth().onAuthStateChanged(async (user) => {
-        if (user) await this.loadSettings(user.uid);
+        if (user) await this.loadSettings();
       });
     },
   },

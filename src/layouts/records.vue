@@ -10,7 +10,7 @@
           dense
           flat
           no-ripple
-          @click="$router.push('/')"
+          @click="$router.push({ name: 'summary' })"
         />
         <q-toolbar-title>
           Registros
@@ -21,7 +21,7 @@
     <q-page-container>
       <router-view/>
 
-      <q-inner-loading :visible="loading">
+      <q-inner-loading :visible="loading" class="bg-white">
         <q-spinner size="50px" color="primary"></q-spinner>
       </q-inner-loading>
     </q-page-container>

@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 import { mapGetters, mapActions } from 'vuex';
 import { date } from 'quasar';
 
@@ -101,7 +101,7 @@ export default {
     ...mapGetters('record', ['records']),
 
     ordenedRecords() {
-      return _.orderBy(this.records, 'date', 'desc');
+      return orderBy(this.records, 'date', 'desc');
     },
   },
 
