@@ -4,6 +4,11 @@ const updateSettings = async (uid, payload) => {
   await Vue.prototype.$firestore.collection('users').doc(uid).update(payload);
 };
 
+const toDate = (timestamp) => {
+  if (!timestamp) return null;
+  return timestamp.toDate();
+};
+
 export const setSettings = async ({ state, commit }, payload) => {
   const data = { settings: payload };
   await updateSettings(state.user.uid, data);
@@ -30,10 +35,15 @@ export const updatePersonal = async ({ state, commit }, payload) => {
 
 export const getSettings = async ({ state, commit }) => {
   const snapshot = await Vue.prototype.$firestore.collection('users').doc(state.user.uid).get();
-  const { settings } = snapshot.data();
-  settings.personal.startHour = new Date(settings.personal.startHour.seconds * 1000);
-  settings.personal.endHour = new Date(settings.personal.endHour.seconds * 1000);
-  commit('setSettings', settings);
+  const data = snapshot.data();
+  if (data) {
+    const { settings } = snapshot.data();
+    settings.personal.startHour = toDate(settings.personal.startHour);
+    settings.personal.endHour = toDate(settings.personal.endHour);
+    commit('setSettings', settings);
+  } else {
+    commit('setSettings', null);
+  }
 };
 
 export const updateProfile = async ({ commit }, payload) => {

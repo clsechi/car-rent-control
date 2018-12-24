@@ -17,7 +17,7 @@
       helper="Horário que começa a trabalhar"
     >
       <q-datetime
-        v-model.trim="form.startHour"
+        v-model="form.startHour"
         type="time"
         :default-value="new Date()"
         float-label="Inicio do dia"
@@ -27,7 +27,7 @@
       helper="Horário que para de trabalhar"
     >
       <q-datetime
-        v-model.trim="form.endHour"
+        v-model="form.endHour"
         type="time"
         :default-value="form.startHour"
         float-label="Fim do dia"
