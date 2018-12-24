@@ -109,9 +109,9 @@ module.exports = function (ctx) {
         exclude: [/\/icons\//, 'manifest.json'],
       },
       manifest: {
-        name: 'Controle de Aluguel',
-        short_name: 'Controle Aluguel',
-        description: 'Tenha controle do aluguel do seu carro, para quem trabalha com Uber/99',
+        name: 'Rent',
+        short_name: 'Rent',
+        description: 'Tenha controle do aluguel do seu carro.',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#212121',

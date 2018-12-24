@@ -1,8 +1,8 @@
 {
   "name": "car-rent-control",
   "version": "1.0.0",
-  "description": "Tenha controle do aluguel do seu carro, para quem trabalha com Uber/99.",
-  "productName": "Controle de Aluguel",
+  "description": "Tenha controle do aluguel do seu carro, para quem trabalha com Uber, 99 e Cabify.",
+  "productName": "Rent",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Carlos Sechi <carlossechi@hotmail.com>",
   "private": true,

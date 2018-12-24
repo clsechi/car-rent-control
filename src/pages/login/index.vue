@@ -4,7 +4,7 @@
       class="logo"
       src="~/assets/logo.png"
     />
-    <h3 class="text-center title">CONTROLE DE ALUGUEL</h3>
+    <h3 class="text-center title">RENT</h3>
     <div id="firebaseui-auth-container"></div>
   </q-page>
 </template>
