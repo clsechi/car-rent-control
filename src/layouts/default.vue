@@ -67,17 +67,6 @@ import { Loading } from 'quasar';
 export default {
   name: 'default',
 
-  preFetch({ store }) {
-    if (!store.getters['user/rental']) {
-      Loading.show({
-        message: 'Carregando...',
-        customClass: 'bg-primary',
-      });
-      return store.dispatch('user/getSettings');
-    }
-    return false;
-  },
-
   data() {
     return {
       open: true,

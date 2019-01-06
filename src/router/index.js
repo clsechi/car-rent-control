@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { Loading } from 'quasar';
 
 import store from '../store';
 import routes from './routes';
@@ -23,26 +24,49 @@ const Router = new VueRouter({
 
 const hasUid = () => store.getters['user/uid'];
 
+const getSettings = async () => {
+  if (!store.getters['user/settingsCompleted']) {
+    Loading.show({
+      message: 'Carregando...',
+      customClass: 'bg-primary',
+    });
+
+    await store.dispatch('user/getSettings');
+
+    if (!store.getters['user/settingsCompleted']) {
+      Vue.$log.debug('Incompleted profile!');
+      return true;
+    }
+  }
+  return false;
+};
+
+const toProfile = records => records.some(record => record.name === 'profile');
+
 Router.beforeEach((to, from, next) => {
-  Vue.prototype.$firebase.auth().onAuthStateChanged((currentUser) => {
+  Vue.prototype.$firebase.auth().onAuthStateChanged(async (currentUser) => {
     Vue.$log.debug('CurrentUser', currentUser);
 
     if (currentUser && !hasUid()) store.commit('user/setData', currentUser);
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      // this route requires auth, check if logged in
-      // if not, redirect to login page.
+      const incompleteSettings = await getSettings();
+
       if (!currentUser) {
         next({
-          path: '/login',
+          name: 'login',
           query: { redirect: to.fullPath },
         });
-      } else {
-        next();
       }
-    } else {
-      next(); // make sure to always call next()!
+
+      if (incompleteSettings && !toProfile(to.matched)) {
+        next({
+          name: 'profile',
+          query: { incomplete: true },
+        });
+      }
     }
+    next(); // make sure to always call next()!
   });
 });
 
