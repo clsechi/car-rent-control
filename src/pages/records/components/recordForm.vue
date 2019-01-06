@@ -170,6 +170,7 @@ export default {
     ...mapActions('record', [
       'createRecord',
       'updateRecord',
+      'getRecords',
     ]),
 
     findRecord() {
@@ -191,6 +192,7 @@ export default {
       }
       this.loading = true;
       try {
+        await this.getRecords();
         if (this.id) {
           await this.updateRecord(this.form);
         } else {

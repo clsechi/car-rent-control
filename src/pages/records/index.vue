@@ -37,7 +37,7 @@
               </div>
               <div class="col-xs-5 col-md-3 flex flex-center">
                 <div class="text-center q-subheading">
-                  <div>{{ formatDate(record.date) }}</div>
+                  <div>{{ record.date | formatDate }}</div>
                   <hr>
                   <div>{{ record.date.getFullYear() }}</div>
                 </div>
@@ -97,6 +97,12 @@ import { date } from 'quasar';
 export default {
   name: 'Index',
 
+  filters: {
+    formatDate(val) {
+      return date.formatDate(val, 'DD/MM');
+    },
+  },
+
   computed: {
     ...mapGetters('record', ['records']),
 
@@ -109,10 +115,6 @@ export default {
     ...mapActions('record', [
       'deleteRecord',
     ]),
-
-    formatDate(val) {
-      return date.formatDate(val, 'DD/MM');
-    },
 
     async confirmDelete(record) {
       try {

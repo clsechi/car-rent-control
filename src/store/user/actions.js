@@ -60,7 +60,7 @@ export const updateProfile = async ({ commit }, payload) => {
       email,
       photoURL,
     },
-    timestamp: Vue.prototype.firestore.FieldValue.serverTimestamp(),
+    timestamp: Vue.prototype.$firestore.FieldValue.serverTimestamp(),
   });
   commit('setData', payload);
 };

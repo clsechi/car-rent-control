@@ -7,13 +7,16 @@ const onThisWeek = (record) => {
   return record.date >= weekStart && record.date <= weekEnd;
 };
 
-export const createRecord = async ({ rootGetters, commit, dispatch }, payload) => {
-  await Vue.prototype.$firestore
+export const createRecord = async ({ rootGetters, commit, dispatch }, record) => {
+  const { id } = await Vue.prototype.$firestore
     .collection('users').doc(rootGetters['user/uid'])
-    .collection('records').doc()
-    .set(payload, { merge: true });
+    .collection('records').add(record);
 
-  if (onThisWeek(payload)) commit('addWeekRecord', payload);
+  Object.assign(record, { id });
+
+  commit('createRecord', record);
+
+  if (onThisWeek(record)) commit('addWeekRecord', record);
 
   dispatch('status/updateStatus', {}, { root: true });
 };
@@ -22,7 +25,7 @@ export const updateRecord = async ({ rootGetters, commit, dispatch }, record) =>
   await Vue.prototype.$firestore
     .collection('users').doc(rootGetters['user/uid'])
     .collection('records').doc(record.id)
-    .set(record, { merge: true });
+    .update(record);
   commit('updateRecord', record);
 
   if (onThisWeek(record)) commit('updateWeekRecord', record);
@@ -38,7 +41,7 @@ export const deleteRecord = async ({ rootGetters, commit, dispatch }, record) =>
     .delete();
   commit('deleteRecord', record.id);
 
-  if (onThisWeek(record)) commit('deleteWeekRecord', record);
+  if (onThisWeek(record)) commit('deleteWeekRecord', record.id);
 
   dispatch('status/updateStatus', {}, { root: true });
 };
