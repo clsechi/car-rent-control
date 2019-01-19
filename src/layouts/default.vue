@@ -1,25 +1,20 @@
 <template>
   <q-layout view="hhh Lpr fFf">
     <q-layout-header>
-      <q-toolbar
-        color="primary"
-      >
-        <q-btn
-          flat
-          round
-          dense
-          icon="menu"
-          @click="open = !open"
+      <q-toolbar color="primary">
+        <component
+          :is="toolbarButton"
+          :open.sync="openMenu"
         />
         <q-toolbar-title>
-          Sua semana
+          {{ toolbarTitle }}
         </q-toolbar-title>
       </q-toolbar>
     </q-layout-header>
 
     <q-layout-drawer
       side="left"
-      v-model="open"
+      v-model="openMenu"
     >
       <div class="row menu text-weight-medium">
         <div class="col-12">
@@ -63,13 +58,20 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { Loading } from 'quasar';
+import menuButton from '../components/menuButton';
+import backButton from '../components/backButton';
 
 export default {
   name: 'default',
 
+  components: {
+    menuButton,
+    backButton,
+  },
+
   data() {
     return {
-      open: true,
+      openMenu: true,
     };
   },
 
@@ -95,6 +97,14 @@ export default {
       if (this.profile.photoURL) return this.profile.photoURL;
       return `https://api.adorable.io/avatars/285/${this.profile.email}`;
     },
+
+    toolbarTitle() {
+      return this.$route.meta.toolbar.title;
+    },
+
+    toolbarButton() {
+      return `${this.$route.meta.toolbar.button}Button`;
+    },
   },
 
   async created() {
@@ -105,7 +115,7 @@ export default {
 </script>
 
 <style scoped>
-.menu {
+.menu  {
   background-image: url('../assets/bg.jpeg');
   padding: 15px;
 }

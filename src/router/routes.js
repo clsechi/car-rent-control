@@ -20,43 +20,67 @@ const routes = [
         path: 'resumo',
         name: 'summary',
         component: () => import('pages/summary/index.vue'),
+        meta: {
+          toolbar: {
+            title: 'Sua Semana',
+            button: 'menu',
+          },
+        },
       },
       {
         path: 'perfil',
         name: 'profile',
         component: () => import('pages/profile/index.vue'),
+        meta: {
+          toolbar: {
+            title: 'Seu Perfil',
+            button: 'menu',
+          },
+        },
       },
-    ],
-  },
-  {
-    path: '/registros',
-    component: () => import('layouts/records.vue'),
-    meta: { requiresAuth: true },
-    children: [
-      { path: '', name: 'records', component: () => import('pages/records/index.vue') },
-    ],
-  },
-  {
-    path: '/registros/novo',
-    name: 'new',
-    component: () => import('pages/records/new.vue'),
-    meta: { requiresAuth: true },
-  },
-  {
-    path: '/registros/:id',
-    name: 'edit',
-    component: () => import('pages/records/edit.vue'),
-    meta: { requiresAuth: true },
-  },
-  {
-    path: '/configuracoes',
-    component: () => import('layouts/settings.vue'),
-    meta: { requiresAuth: true },
-    children: [
       {
-        path: '',
+        path: 'registros',
+        name: 'records',
+        component: () => import('pages/records/index.vue'),
+        meta: {
+          toolbar: {
+            title: 'Registros',
+            button: 'menu',
+          },
+        },
+      },
+      {
+        path: 'registros/novo',
+        name: 'new',
+        component: () => import('pages/records/new.vue'),
+        meta: {
+          toolbar: {
+            title: 'Novo Registro',
+            button: 'back',
+          },
+        },
+      },
+      {
+        path: 'registros/:id',
+        name: 'edit',
+        component: () => import('pages/records/edit.vue'),
+        meta: {
+          toolbar: {
+            title: 'Editar Registro',
+            button: 'back',
+          },
+        },
+      },
+      {
+        path: 'configuracoes',
         name: 'settings',
         component: () => import('pages/settings/index.vue'),
+        meta: {
+          toolbar: {
+            title: 'Configurações',
+            button: 'back',
+          },
+        },
       },
     ],
   },

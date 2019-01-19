@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <q-layout-header>
+    <!-- <q-layout-header>
       <q-toolbar>
         <q-btn
           icon="arrow_back"
@@ -16,7 +16,7 @@
           Novo Registro
         </q-toolbar-title>
       </q-toolbar>
-    </q-layout-header>
+    </q-layout-header> -->
 
     <q-page-container>
       <record-form

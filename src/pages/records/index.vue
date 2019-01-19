@@ -86,6 +86,9 @@
       @click="$router.push({ name: 'new' })"
       style="right: 18px; bottom: 18px"
     />
+    <q-inner-loading :visible="loading" class="bg-white">
+      <q-spinner size="50px" color="primary"></q-spinner>
+    </q-inner-loading>
   </q-page>
 </template>
 
@@ -111,8 +114,21 @@ export default {
     },
   },
 
+  data() {
+    return {
+      open: true,
+      loading: true,
+    };
+  },
+
+  async created() {
+    await this.getRecords();
+    this.loading = false;
+  },
+
   methods: {
     ...mapActions('record', [
+      'getRecords',
       'deleteRecord',
     ]),
 
