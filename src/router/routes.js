@@ -2,7 +2,7 @@
 const routes = [
   {
     path: '/login',
-    component: () => import('layouts/login.vue'),
+    component: () => import('layouts/public.vue'),
     children: [
       {
         path: '',
@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: '/',
-    component: () => import('layouts/default.vue'),
+    component: () => import('layouts/private.vue'),
     meta: { requiresAuth: true },
     children: [
       {
