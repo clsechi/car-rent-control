@@ -1,10 +1,24 @@
 <template>
   <q-page padding>
+    <div class="row">
+      <div class="col-12">
+        <q-btn
+          icon="arrow_back"
+          text-color="primary"
+          size="1.1em"
+          dense
+          flat
+          no-ripple
+          class="q-ml-md"
+          @click="$router.push({ name: 'home' })"
+        />
+      </div>
+    </div>
     <img
       class="logo"
       src="~/assets/logo.png"
     />
-    <h3 class="text-center title">RENT</h3>
+    <h3 class="text-center title">Rent</h3>
     <div id="firebaseui-auth-container"></div>
   </q-page>
 </template>
@@ -70,7 +84,7 @@ export default {
 @import url(https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css);
 
 .title {
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .logo {

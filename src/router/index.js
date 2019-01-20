@@ -43,11 +43,17 @@ const getSettings = async () => {
 
 const toProfile = records => records.some(record => record.name === 'profile');
 
+const toHome = records => records.some(record => record.name === 'home');
+
 Router.beforeEach((to, from, next) => {
   Vue.prototype.$firebase.auth().onAuthStateChanged(async (currentUser) => {
     Vue.$log.debug('CurrentUser', currentUser);
 
     if (currentUser && !hasUid()) store.commit('user/setData', currentUser);
+
+    if (currentUser && toHome(to.matched)) {
+      next({ name: 'summary' });
+    }
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
       const incompleteSettings = await getSettings();

@@ -82,7 +82,7 @@ export default {
 
     signOut() {
       this.$firebase.auth().signOut();
-      this.$router.push('/login');
+      this.$router.push({ name: 'home' });
     },
   },
 

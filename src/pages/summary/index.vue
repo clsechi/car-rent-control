@@ -60,7 +60,7 @@ export default {
     ]),
 
     showDistance() {
-      return this.rental.hasLimit;
+      return this.rental.km.hasLimit;
     },
   },
 };
