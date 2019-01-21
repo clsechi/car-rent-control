@@ -12,21 +12,18 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
-      side="left"
-      v-model="openMenu"
-    >
+    <q-layout-drawer v-model="openMenu" side="left">
       <div class="row menu text-weight-medium">
         <div class="col-12">
           <img
             :src="avatarSrc"
             alt="avatar"
             class="avatar q-mb-md"
-          >
+          />
         </div>
         <div class="col-12">
-          <span class="q-title capitalize block">{{ this.profile.displayName }}</span>
-        <small class="q-caption">{{ this.profile.email }}</small>
+          <span class="q-title capitalize block">{{ profile.displayName }}</span>
+          <small class="q-caption">{{ profile.email }}</small>
         </div>
       </div>
       <q-list highligth link>
@@ -42,7 +39,10 @@
           <q-item-side icon="settings"/>
           <q-item-main label="Configurações"/>
         </q-item>
-        <q-item class="fixed-bottom" sparse @click.native="signOut">
+        <q-item
+          class="fixed-bottom"
+          sparse
+          @click.native="signOut">
           <q-item-side icon="exit_to_app"/>
           <q-item-main label="Sair"/>
         </q-item>
@@ -75,17 +75,6 @@ export default {
     };
   },
 
-  methods: {
-    ...mapActions('record', [
-      'getWeekRecords',
-    ]),
-
-    signOut() {
-      this.$firebase.auth().signOut();
-      this.$router.push({ name: 'home' });
-    },
-  },
-
   computed: {
     ...mapGetters('record', ['weekRecords']),
 
@@ -110,6 +99,17 @@ export default {
   async created() {
     await this.getWeekRecords();
     Loading.hide();
+  },
+
+  methods: {
+    ...mapActions('record', [
+      'getWeekRecords',
+    ]),
+
+    signOut() {
+      this.$firebase.auth().signOut();
+      this.$router.push({ name: 'home' });
+    },
   },
 };
 </script>

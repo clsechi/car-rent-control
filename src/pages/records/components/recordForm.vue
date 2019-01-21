@@ -7,20 +7,20 @@
       <q-card>
         <q-card-main>
           <q-field
+            :error="$v.form.date.$error"
             class="q-mb-md"
             error-label="Campo obrigatório"
             icon="today"
-            :error="$v.form.date.$error"
           >
             <q-datetime
               v-model="form.date"
               type="date"
               float-label="Data"
               format="dddd, DD/MM/YYYY"
-              @blur="$v.form.date.$touch"
               inverted-light
               dark
               color="grey-4"
+              @blur="$v.form.date.$touch"
             />
           </q-field>
           <q-field
@@ -37,21 +37,21 @@
             />
           </q-field>
           <q-field
+            :error="$v.form.expenses.fuel.$error"
             class="q-my-md"
             error-label="Campo obrigatório"
             icon="local_gas_station"
-            :error="$v.form.expenses.fuel.$error"
           >
             <q-input
               v-model="form.expenses.fuel"
+              :decimals="2"
+              :step="0.01"
               float-label="Gastos com combustível"
               type="number"
-              :decimals="2"
               prefix="R$"
-              :step="0.01"
-              @blur="$v.form.expenses.fuel.$touch"
               inverted-light
               color="grey-4"
+              @blur="$v.form.expenses.fuel.$touch"
             />
           </q-field>
           <q-field
@@ -60,31 +60,31 @@
           >
             <q-input
               v-model="form.expenses.others"
+              :decimals="2"
+              :step="0.01"
               float-label="Outros gastos"
               type="number"
-              :decimals="2"
               prefix="R$"
-              :step="0.01"
               inverted-light
               color="grey-4"
             />
           </q-field>
           <q-field
+            :error="$v.form.earnings.$error"
             class="q-my-md"
             error-label="Campo obrigatório"
             icon="attach_money"
-            :error="$v.form.earnings.$error"
           >
             <q-input
               v-model="form.earnings"
+              :decimals="2"
+              :step="0.01"
               float-label="Ganhos :)"
               type="number"
-              :decimals="2"
               prefix="R$"
-              :step="0.01"
-              @blur="$v.form.earnings.$touch"
               inverted-light
               color="grey-4"
+              @blur="$v.form.earnings.$touch"
             />
           </q-field>
           <div class="flex justify-around">
@@ -95,11 +95,11 @@
               @click="$router.go(-1)"
             />
             <q-btn
+              :label="label"
+              :loading="loading"
               class="q-my-lg"
               color="positive"
-              :label="label"
               @click="validateAndCreateRecord"
-              :loading="loading"
             />
           </div>
         </q-card-main>
@@ -126,6 +126,7 @@ export default {
     },
     id: {
       type: String,
+      default: null,
     },
     message: {
       type: String,

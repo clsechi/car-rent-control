@@ -1,9 +1,9 @@
 <template>
   <record-form
+    :id="id"
     title="Editar registro"
     label="Atualizar registro"
     message="Registro atualizado com sucesso"
-    :id="id"
   />
 </template>
 

@@ -9,7 +9,7 @@ module.exports = {
   },
   // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-  extends: ['plugin:vue/essential', 'airbnb-base'],
+  extends: ['plugin:vue/recommended', 'airbnb-base'],
   // required to lint *.vue files
   plugins: [
     'vue'
@@ -30,6 +30,16 @@ module.exports = {
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': 0,
+    'vue/name-property-casing': 0,
+    'vue/max-attributes-per-line': 0, // change
+    'vue/html-self-closing': ['error', {
+      'html': {
+        'void': 'always',
+        'normal': 'always',
+        'component': 'always'
+      },
+    }],
+
 
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0

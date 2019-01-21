@@ -16,9 +16,9 @@
     >
       <q-input
         v-model.trim="form.plate"
+        :maxlength="8"
         type="text"
         float-label="Placa do veículo"
-        :maxlength="8"
         upper-case
       />
     </q-field>
@@ -33,16 +33,17 @@
       />
     </q-field>
     <q-stepper-navigation class="q-mt-md">
-      <q-btn color="secondary"
+      <q-btn
+        color="secondary"
         flat
-        @click="$emit('previous')"
         label="Voltar"
+        @click="$emit('previous')"
       />
       <q-btn
+        :disable="$v.form.$error"
         color="secondary"
         label="Continuar"
         @click="validateAndUpdateSettings"
-        :disable="$v.form.$error"
       />
     </q-stepper-navigation>
   </div>
@@ -54,17 +55,6 @@ import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'carInputs',
-  computed: {
-    ...mapGetters('user', ['car']),
-
-    isRequired() {
-      return this.form.km.hasLimit;
-    },
-  },
-
-  created() {
-    this.updateForm();
-  },
 
   data() {
     return {
@@ -76,6 +66,18 @@ export default {
         },
       },
     };
+  },
+
+  computed: {
+    ...mapGetters('user', ['car']),
+
+    isRequired() {
+      return this.form.km.hasLimit;
+    },
+  },
+
+  created() {
+    this.updateForm();
   },
 
   validations: {

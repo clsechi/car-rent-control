@@ -25,8 +25,8 @@
       <q-step title="Pronto!">
         Parabéns, agora seu perfil esta completo!
         <q-stepper-navigation class="q-mt-md">
-          <q-btn color="secondary" flat @click="previousStep" label="Voltar" />
-          <q-btn color="secondary" @click="finalize" label="Concluir" />
+          <q-btn color="secondary" flat label="Voltar" @click="previousStep" />
+          <q-btn color="secondary" label="Concluir" @click="finalize" />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>
@@ -45,14 +45,6 @@ export default {
     rentalInputs,
     carInputs,
     personalInputs: () => import('./components/personalInputs.vue'),
-  },
-
-  computed: {
-    ...mapGetters('user', ['profile']),
-
-    canFinalize() {
-      return this.steps.reduce((acc, step) => step.completed);
-    },
   },
 
   data() {
@@ -81,6 +73,14 @@ export default {
         },
       ],
     };
+  },
+
+  computed: {
+    ...mapGetters('user', ['profile']),
+
+    canFinalize() {
+      return this.steps.reduce((acc, step) => step.completed);
+    },
   },
 
   methods: {

@@ -26,8 +26,8 @@
       size="18px"
       icon="add"
       color="secondary"
-      @click="$router.push({ name: 'new' })"
       style="right: 18px; bottom: 18px"
+      @click="$router.push({ name: 'new' })"
     />
   </q-page>
 </template>
@@ -50,7 +50,7 @@ export default {
     earningsCard,
     goalCard,
     spendingCard,
-    distanceCard = () => import('./components/distanceCard.vue'),
+    distanceCard: () => import('./components/distanceCard.vue'),
   },
 
   computed: {

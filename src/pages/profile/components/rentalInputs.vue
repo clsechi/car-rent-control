@@ -48,16 +48,17 @@
       </q-field>
     </div>
     <q-stepper-navigation class="q-mt-md">
-      <q-btn color="secondary"
+      <q-btn
+        color="secondary"
         flat
-        @click="$emit('previous')"
         label="Voltar"
+        @click="$emit('previous')"
       />
       <q-btn
+        :disable="$v.form.$error"
         color="secondary"
         label="Continuar"
         @click="validateAndUpdateSettings"
-        :disable="$v.form.$error"
       />
     </q-stepper-navigation>
   </div>
@@ -69,18 +70,6 @@ import { required, requiredIf } from 'vuelidate/lib/validators';
 
 export default {
   name: 'rentalInputs',
-
-  computed: {
-    ...mapGetters('user', ['rental']),
-
-    isRequired() {
-      return this.form.km.hasLimit;
-    },
-  },
-
-  created() {
-    this.updateForm();
-  },
 
   data() {
     return {
@@ -95,6 +84,18 @@ export default {
         },
       },
     };
+  },
+
+  computed: {
+    ...mapGetters('user', ['rental']),
+
+    isRequired() {
+      return this.form.km.hasLimit;
+    },
+  },
+
+  created() {
+    this.updateForm();
   },
 
   validations: {

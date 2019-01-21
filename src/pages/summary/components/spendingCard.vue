@@ -1,8 +1,8 @@
 <template>
   <custom-card
+    :value="spend >= 0 ? `R$ ${spend.toFixed()}` : '--'"
     color=""
     description="Você gastou:"
-    :value="spend >= 0 ? `R$ ${spend.toFixed()}` : '--'"
     icon="money_off"
   />
 </template>

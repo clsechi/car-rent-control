@@ -22,7 +22,7 @@
             label-set="Salvar"
             @save="updateSettings"
           >
-            <q-input type="number" v-model.number="form.rental.costs.week" />
+            <q-input v-model.number="form.rental.costs.week" type="number" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -49,7 +49,7 @@
               label-set="Salvar"
               @save="updateSettings"
             >
-              <q-input type="number" v-model.number="form.rental.km.allowed" />
+              <q-input v-model.number="form.rental.km.allowed" type="number" />
             </q-popup-edit>
           </q-item-main>
         </q-item>
@@ -65,7 +65,7 @@
               label-set="Salvar"
               @save="updateSettings"
             >
-              <q-input type="number" v-model.number="form.rental.costs.exceeded" />
+              <q-input v-model.number="form.rental.costs.exceeded" type="number" />
             </q-popup-edit>
           </q-item-main>
         </q-item>
@@ -83,7 +83,7 @@
             label-set="Salvar"
             @save="updateSettings"
           >
-            <q-input type="number" v-model="form.car.km.actual" />
+            <q-input v-model="form.car.km.actual" type="number" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -99,7 +99,7 @@
             label-set="Salvar"
             @save="updateSettings"
           >
-            <q-input type="number" v-model="form.car.km.actual" />
+            <q-input v-model="form.car.km.actual" type="number" />
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -116,10 +116,10 @@
             @save="updateSettings"
           >
             <q-input
-            type="text"
-            v-model.trim="form.car.plate"
-            :maxlength="8"
-            upper-case
+              v-model.trim="form.car.plate"
+              :maxlength="8"
+              type="text"
+              upper-case
             />
           </q-popup-edit>
         </q-item-main>
@@ -137,7 +137,7 @@
             label-set="Salvar"
             @save="updateSettings"
           >
-            <q-input type="number" v-model.number="form.personal.costs"/>
+            <q-input v-model.number="form.personal.costs" type="number"/>
           </q-popup-edit>
         </q-item-main>
       </q-item>
@@ -155,9 +155,9 @@
           >
             <q-datetime
               v-model="form.personal.startHour"
+              :default-value="new Date()"
               type="time"
               popover
-              :default-value="new Date()"
             />
           </q-popup-edit>
         </q-item-main>
@@ -176,9 +176,9 @@
           >
             <q-datetime
               v-model="form.personal.endHour"
+              :default-value="new Date()"
               type="time"
               popover
-              :default-value="new Date()"
             />
           </q-popup-edit>
         </q-item-main>

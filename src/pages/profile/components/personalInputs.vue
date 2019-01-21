@@ -18,8 +18,8 @@
     >
       <q-datetime
         v-model="form.startHour"
-        type="time"
         :default-value="new Date()"
+        type="time"
         float-label="Inicio do dia"
       />
     </q-field>
@@ -28,22 +28,23 @@
     >
       <q-datetime
         v-model="form.endHour"
-        type="time"
         :default-value="form.startHour"
+        type="time"
         float-label="Fim do dia"
       />
     </q-field>
     <q-stepper-navigation class="q-mt-md">
-      <q-btn color="secondary"
+      <q-btn
+        color="secondary"
         flat
-        @click="$emit('previous')"
         label="Voltar"
+        @click="$emit('previous')"
       />
       <q-btn
+        :disable="$v.form.$error"
         color="secondary"
         label="Continuar"
         @click="validateAndUpdateSettings"
-        :disable="$v.form.$error"
       />
     </q-stepper-navigation>
   </div>
@@ -55,6 +56,17 @@ import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'carInputs',
+
+  data() {
+    return {
+      form: {
+        costs: null,
+        startHour: null,
+        endHour: null,
+      },
+    };
+  },
+
   computed: {
     ...mapGetters('user', ['personal']),
 
@@ -65,16 +77,6 @@ export default {
 
   created() {
     this.updateForm();
-  },
-
-  data() {
-    return {
-      form: {
-        costs: null,
-        startHour: null,
-        endHour: null,
-      },
-    };
   },
 
   validations: {
