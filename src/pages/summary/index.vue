@@ -37,7 +37,6 @@ import { mapGetters } from 'vuex';
 
 import costsCard from './components/costsCard.vue';
 import daysCard from './components/daysCard.vue';
-import distanceCard from './components/distanceCard.vue';
 import earningsCard from './components/earningsCard.vue';
 import goalCard from './components/goalCard.vue';
 import spendingCard from './components/spendingCard.vue';
@@ -46,12 +45,12 @@ export default {
   name: 'PageIndex',
 
   components: {
-    'costs-card': costsCard,
-    'days-card': daysCard,
-    'distance-card': distanceCard,
-    'earnings-card': earningsCard,
-    'goal-card': goalCard,
-    'spending-card': spendingCard,
+    costsCard,
+    daysCard,
+    earningsCard,
+    goalCard,
+    spendingCard,
+    distanceCard = () => import('./components/distanceCard.vue'),
   },
 
   computed: {

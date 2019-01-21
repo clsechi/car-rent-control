@@ -15,7 +15,7 @@ export default {
   name: 'EarningsCard',
 
   components: {
-    'custom-card': customCard,
+    customCard,
   },
 
   computed: {
