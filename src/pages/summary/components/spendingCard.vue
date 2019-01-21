@@ -15,7 +15,7 @@ export default {
   name: 'Spendingard',
 
   components: {
-    'custom-card': customCard,
+    customCard,
   },
 
   computed: {

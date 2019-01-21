@@ -15,7 +15,7 @@ export default {
   name: 'GoalCard',
 
   components: {
-    'custom-card': customCard,
+    customCard,
   },
 
   computed: {

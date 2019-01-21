@@ -15,7 +15,7 @@ export default {
   name: 'DistanceCard',
 
   components: {
-    'custom-card': customCard,
+    customCard,
   },
 
   computed: {

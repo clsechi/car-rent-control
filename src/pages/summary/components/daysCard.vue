@@ -15,7 +15,7 @@ export default {
   name: 'DaysCard',
 
   components: {
-    'custom-card': customCard,
+    customCard,
   },
 
   computed: {
