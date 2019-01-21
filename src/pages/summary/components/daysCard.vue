@@ -1,8 +1,8 @@
 <template>
   <custom-card
+    :value="date ? `${date} dias` : '--'"
     color=""
     description="Dias restantes:"
-    :value="date ? `${date} dias` : '--'"
     icon="date_range"
   />
 </template>

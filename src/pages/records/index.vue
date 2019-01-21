@@ -9,9 +9,9 @@
     </div>
     <div v-else class="row gutter-sm">
       <div
-        class="col-12"
         v-for="record in ordenedRecords"
         :key="record.id"
+        class="col-12"
       >
         <q-card>
           <q-card-main>
@@ -38,7 +38,7 @@
               <div class="col-xs-5 col-md-3 flex flex-center">
                 <div class="text-center q-subheading">
                   <div>{{ record.date | formatDate }}</div>
-                  <hr>
+                  <hr/>
                   <div>{{ record.date.getFullYear() }}</div>
                 </div>
               </div>
@@ -83,11 +83,11 @@
       class="fixed"
       icon="add"
       color="secondary"
-      @click="$router.push({ name: 'new' })"
       style="right: 18px; bottom: 18px"
+      @click="$router.push({ name: 'new' })"
     />
     <q-inner-loading :visible="loading" class="bg-white">
-      <q-spinner size="50px" color="primary"></q-spinner>
+      <q-spinner size="50px" color="primary"/>
     </q-inner-loading>
   </q-page>
 </template>
@@ -106,19 +106,19 @@ export default {
     },
   },
 
+  data() {
+    return {
+      open: true,
+      loading: true,
+    };
+  },
+
   computed: {
     ...mapGetters('record', ['records']),
 
     ordenedRecords() {
       return orderBy(this.records, 'date', 'desc');
     },
-  },
-
-  data() {
-    return {
-      open: true,
-      loading: true,
-    };
   },
 
   async created() {

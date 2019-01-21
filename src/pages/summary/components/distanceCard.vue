@@ -1,8 +1,8 @@
 <template>
   <custom-card
+    :value="distance >= 0 ? `${distance} km` : '--'"
     color=""
     description="Pode dirigir:"
-    :value="distance >= 0 ? `${distance} km` : '--'"
     icon="fas fa-road"
   />
 </template>

@@ -1,8 +1,8 @@
 <template>
   <custom-card
+    :value="costs ? `R$ ${costs.toFixed(2)}` : '--'"
     color=""
     description="Precisa pagar:"
-    :value="costs ? `R$ ${costs.toFixed(2)}` : '--'"
     icon="fas fa-hand-holding-usd"
   />
 </template>

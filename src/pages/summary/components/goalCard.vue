@@ -1,8 +1,8 @@
 <template>
   <custom-card
+    :value="goal ? `R$ ${goal.toFixed(2)}` : '--'"
     color=""
     description="Meta de hoje:"
-    :value="goal ? `R$ ${goal.toFixed(2)}` : '--'"
     icon="fas fa-car-side"
   />
 </template>

@@ -26,8 +26,8 @@
       size="18px"
       icon="add"
       color="secondary"
-      @click="$router.push({ name: 'new' })"
       style="right: 18px; bottom: 18px"
+      @click="$router.push({ name: 'new' })"
     />
   </q-page>
 </template>

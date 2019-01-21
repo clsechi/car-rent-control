@@ -19,7 +19,7 @@
       src="~/assets/logo.png"
     />
     <h3 class="text-center title">Rent</h3>
-    <div id="firebaseui-auth-container"></div>
+    <div id="firebaseui-auth-container"/>
   </q-page>
 </template>
 
