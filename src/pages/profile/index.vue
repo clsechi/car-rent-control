@@ -25,8 +25,17 @@
       <q-step title="Pronto!">
         Parabéns, agora seu perfil esta completo!
         <q-stepper-navigation class="q-mt-md">
-          <q-btn color="secondary" flat label="Voltar" @click="previousStep" />
-          <q-btn color="secondary" label="Concluir" @click="finalize" />
+          <q-btn
+            color="secondary"
+            flat
+            label="Voltar"
+            @click="previousStep"
+          />
+          <q-btn
+            color="secondary"
+            label="Concluir"
+            @click="finalize"
+          />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>

@@ -31,7 +31,10 @@ module.exports = {
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': 0,
     'vue/name-property-casing': 0,
-    'vue/max-attributes-per-line': 0, // change
+    'vue/max-attributes-per-line': ["error", {
+      "singleline": 2,
+      "multiline": 1,
+    }],
     'vue/html-self-closing': ['error', {
       'html': {
         'void': 'always',
