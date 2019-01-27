@@ -66,6 +66,7 @@ module.exports = function (ctx) {
         'QCardActions',
         'QField',
         'QInput',
+        'QSelect',
         'QTabs',
         'QTab',
         'QTabPane',
@@ -79,6 +80,9 @@ module.exports = function (ctx) {
         'QStep',
         'QStepperNavigation',
         'QToggle',
+        'QFab',
+        'QFabAction',
+        'QTooltip',
       ],
       directives: [
         'Ripple',
@@ -114,8 +118,8 @@ module.exports = function (ctx) {
         description: 'Tenha controle do aluguel do seu carro.',
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#212121',
-        theme_color: '#212121',
+        background_color: '#000000',
+        theme_color: '#000000',
         icons: [
           {
             'src': 'statics/icons/android-icon-144x144.png',

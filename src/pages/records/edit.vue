@@ -1,21 +1,26 @@
 <template>
-  <record-form
-    :id="id"
-    title="Editar registro"
-    label="Atualizar registro"
-    message="Registro atualizado com sucesso"
-  />
+  <q-page padding>
+    <transition
+      appear
+      enter-active-class="animated fadeInUp"
+    >
+      <component
+        :is="recordType"
+        :id="id"
+        label="Salvar"
+        message="Registro atualizado com sucesso"
+      />
+    </transition>
+  </q-page>
 </template>
 
 <script>
-import recordForm from './components/recordForm.vue';
+import mainMixin from './components/mainMixin.vue';
 
 export default {
   name: 'Edit',
 
-  components: {
-    recordForm,
-  },
+  mixins: [mainMixin],
 
   data() {
     return {

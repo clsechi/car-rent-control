@@ -1,20 +1,25 @@
 <template>
-  <record-form
-    title="Novo registro"
-    label="Criar novo registro"
-    message="Registro criado com sucesso"
-  />
+  <q-page padding>
+    <transition
+      appear
+      enter-active-class="animated fadeInUp"
+    >
+      <component
+        :is="recordType"
+        label="Adicionar"
+        message="Registro criado com sucesso"
+      />
+    </transition>
+  </q-page>
 </template>
 
 <script>
-import recordForm from './components/recordForm.vue';
+import mainMixin from './components/mainMixin.vue';
 
 export default {
   name: 'New',
 
-  components: {
-    recordForm,
-  },
+  mixins: [mainMixin],
 };
 </script>
 

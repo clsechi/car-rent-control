@@ -20,21 +20,13 @@
         <earnings-card/>
       </div>
     </div>
-    <q-btn
-      round
-      class="fixed"
-      size="18px"
-      icon="add"
-      color="secondary"
-      style="right: 18px; bottom: 18px"
-      @click="$router.push({ name: 'new' })"
-    />
+    <new-record-button/>
   </q-page>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-
+import newRecordButton from '../../components/newRecordButton.vue';
 import costsCard from './components/costsCard.vue';
 import daysCard from './components/daysCard.vue';
 import earningsCard from './components/earningsCard.vue';
@@ -51,6 +43,7 @@ export default {
     goalCard,
     spendingCard,
     distanceCard: () => import('./components/distanceCard.vue'),
+    newRecordButton,
   },
 
   computed: {

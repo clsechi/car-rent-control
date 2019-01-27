@@ -77,15 +77,7 @@
         </q-card>
       </div>
     </div>
-    <q-btn
-      round
-      size="18px"
-      class="fixed"
-      icon="add"
-      color="secondary"
-      style="right: 18px; bottom: 18px"
-      @click="$router.push({ name: 'new' })"
-    />
+    <new-record-button/>
     <q-inner-loading :visible="loading" class="bg-white">
       <q-spinner size="50px" color="primary"/>
     </q-inner-loading>
@@ -96,9 +88,14 @@
 import orderBy from 'lodash/orderBy';
 import { mapGetters, mapActions } from 'vuex';
 import { date } from 'quasar';
+import newRecordButton from '../../components/newRecordButton.vue';
 
 export default {
   name: 'Index',
+
+  components: {
+    newRecordButton,
+  },
 
   filters: {
     formatDate(val) {

@@ -22,7 +22,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: 'resumo',
+        path: 'summary',
         name: 'summary',
         component: () => import('pages/summary/index.vue'),
         meta: {
@@ -33,7 +33,7 @@ const routes = [
         },
       },
       {
-        path: 'perfil',
+        path: 'profile',
         name: 'profile',
         component: () => import('pages/profile/index.vue'),
         meta: {
@@ -44,7 +44,7 @@ const routes = [
         },
       },
       {
-        path: 'registros',
+        path: 'records',
         name: 'records',
         component: () => import('pages/records/index.vue'),
         meta: {
@@ -55,29 +55,103 @@ const routes = [
         },
       },
       {
-        path: 'registros/novo',
-        name: 'new',
+        path: 'records/incomes/new',
+        name: 'newIncome',
         component: () => import('pages/records/new.vue'),
         meta: {
           toolbar: {
-            title: 'Novo Registro',
+            title: 'Ganho',
             button: 'back',
           },
+          componentPrefix: 'income',
         },
       },
       {
-        path: 'registros/:id',
-        name: 'edit',
+        path: 'records/incomes/:id',
+        name: 'editIncome',
         component: () => import('pages/records/edit.vue'),
         meta: {
           toolbar: {
-            title: 'Editar Registro',
+            title: 'Ganho',
             button: 'back',
           },
+          componentPrefix: 'income',
         },
       },
       {
-        path: 'configuracoes',
+        path: 'records/expenses/new',
+        name: 'newExpense',
+        component: () => import('pages/records/new.vue'),
+        meta: {
+          toolbar: {
+            title: 'Despesas',
+            button: 'back',
+          },
+          componentPrefix: 'expense',
+        },
+      },
+      {
+        path: 'records/expenses/:id',
+        name: 'editExpense',
+        component: () => import('pages/records/edit.vue'),
+        meta: {
+          toolbar: {
+            title: 'Despesas',
+            button: 'back',
+          },
+          componentPrefix: 'expense',
+        },
+      },
+      {
+        path: 'records/refueling/new',
+        name: 'newRefueling',
+        component: () => import('pages/records/new.vue'),
+        meta: {
+          toolbar: {
+            title: 'Abastecimento',
+            button: 'back',
+          },
+          componentPrefix: 'refueling',
+        },
+      },
+      {
+        path: 'records/refueling/:id',
+        name: 'editRefueling',
+        component: () => import('pages/records/edit.vue'),
+        meta: {
+          toolbar: {
+            title: 'Abastecimento',
+            button: 'back',
+          },
+          componentPrefix: 'refueling',
+        },
+      },
+      {
+        path: 'records/maintenance/new',
+        name: 'newMaintenance',
+        component: () => import('pages/records/new.vue'),
+        meta: {
+          toolbar: {
+            title: 'Manutenção',
+            button: 'back',
+          },
+          componentPrefix: 'maintenance',
+        },
+      },
+      {
+        path: 'records/maintenance/:id',
+        name: 'editMaintenance',
+        component: () => import('pages/records/edit.vue'),
+        meta: {
+          toolbar: {
+            title: 'Manutenção',
+            button: 'back',
+          },
+          componentPrefix: 'maintenance',
+        },
+      },
+      {
+        path: 'settings',
         name: 'settings',
         component: () => import('pages/settings/index.vue'),
         meta: {

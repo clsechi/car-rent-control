@@ -18,36 +18,18 @@
       />
     </q-field>
     <q-field
-      class="q-mb-lg"
-      icon="money"
-    >
-      <q-input
-        v-model="form.odometer"
-        :decimals="0"
-        :step="1"
-        float-label="Odômetro atual"
-        type="number"
-        suffix="km"
-        inverted-light
-        color="grey-4"
-      />
-    </q-field>
-    <q-field
-      :error="$v.form.description.$error"
+      :error="$v.form.spendWith.$error"
       class="q-mb-xs"
       error-label="Campo obrigatório"
       icon="label"
     >
-      <q-input
-        v-model="form.value"
-        :decimals="2"
-        :step="0.01"
-        float-label="Descrição"
-        type="number"
-        prefix="R$"
+      <q-select
+        v-model="form.spendWith"
+        :options="spendWithOptions"
+        float-label="Gasto com"
         inverted-light
         color="grey-4"
-        @blur="$v.form.value.$touch"
+        @blur="$v.form.spendWith.$touch"
       />
     </q-field>
     <q-field
@@ -81,26 +63,50 @@ import { required } from 'vuelidate/lib/validators';
 import formMixin from './formMixin';
 
 export default {
-  name: 'maintenanceForm',
+  name: 'expenseForm',
 
   mixins: [formMixin],
 
   data() {
     return {
       form: {
-        type: 'MAINTENANCE',
+        type: 'EXPENSE',
         date: new Date(),
-        odometer: null,
-        description: null,
+        spendWith: null,
         value: null,
       },
     };
   },
 
+  computed: {
+    spendWithOptions() {
+      const options = [
+        'Alimentação',
+        'Lava-rápido',
+        'Plano de celular',
+        'Água',
+        'Acessórios',
+        'Estacionamento',
+        'Pedágio',
+        'Seguro',
+        'Multa',
+        'IPVA',
+        'Licenciamento',
+        'Vistoria/Inspeção',
+        'Sem Parar',
+        'Outros',
+      ];
+      return options.map(option => ({
+        label: option,
+        value: option,
+      }));
+    },
+  },
+
   validations: {
     form: {
       date: { required },
-      description: { required },
+      spendWith: { required },
       value: { required },
     },
   },
