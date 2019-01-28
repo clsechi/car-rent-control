@@ -18,18 +18,18 @@
       />
     </q-field>
     <q-field
-      :error="$v.form.spendWith.$error"
+      :error="$v.form.description.$error"
       class="q-mb-xs"
       error-label="Campo obrigatório"
       icon="label"
     >
       <q-select
-        v-model="form.spendWith"
-        :options="spendWithOptions"
+        v-model="form.description"
+        :options="descriptionOptions"
         float-label="Gasto com"
         inverted-light
         color="grey-4"
-        @blur="$v.form.spendWith.$touch"
+        @blur="$v.form.description.$touch"
       />
     </q-field>
     <q-field
@@ -72,14 +72,14 @@ export default {
       form: {
         type: 'EXPENSE',
         date: new Date(),
-        spendWith: null,
+        description: null,
         value: null,
       },
     };
   },
 
   computed: {
-    spendWithOptions() {
+    descriptionOptions() {
       const options = [
         'Alimentação',
         'Lava-rápido',
@@ -106,7 +106,7 @@ export default {
   validations: {
     form: {
       date: { required },
-      spendWith: { required },
+      description: { required },
       value: { required },
     },
   },

@@ -18,18 +18,18 @@
       />
     </q-field>
     <q-field
-      :error="$v.form.earnedWith.$error"
+      :error="$v.form.description.$error"
       class="q-mb-xs"
       error-label="Campo obrigatório"
       icon="label"
     >
       <q-select
-        v-model="form.earnedWith"
-        :options="earnedWithOptions"
+        v-model="form.description"
+        :options="descriptionOptions"
         float-label="Ganho com"
         inverted-light
         color="grey-4"
-        @blur="$v.form.earnedWith.$touch"
+        @blur="$v.form.description.$touch"
       />
     </q-field>
     <q-field
@@ -72,14 +72,14 @@ export default {
       form: {
         type: 'INCOME',
         date: new Date(),
-        earnedWith: 'Aplicativos',
+        description: 'Aplicativos',
         value: null,
       },
     };
   },
 
   computed: {
-    earnedWithOptions() {
+    descriptionOptions() {
       const options = [
         'Aplicativos',
         'Corrida Particular',
@@ -96,7 +96,7 @@ export default {
   validations: {
     form: {
       date: { required },
-      earnedWith: { required },
+      description: { required },
       value: { required },
     },
   },

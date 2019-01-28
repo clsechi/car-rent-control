@@ -39,19 +39,16 @@
       icon="label"
     >
       <q-input
-        v-model="form.value"
-        :decimals="2"
-        :step="0.01"
+        v-model="form.description"
         float-label="Descrição"
-        type="number"
-        prefix="R$"
+        type="text"
         inverted-light
         color="grey-4"
-        @blur="$v.form.value.$touch"
+        @blur="$v.form.description.$touch"
       />
     </q-field>
     <q-field
-      :error="$v.form.value.$error"
+      :error="$v.form.description.$error"
       class="q-mb-xs"
       error-label="Campo obrigatório"
       icon="attach_money"

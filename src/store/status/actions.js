@@ -2,6 +2,7 @@
 import moment from 'moment';
 
 export const updateStatus = ({ rootGetters, commit }) => {
+  console.log(rootGetters['record/weekRecords']);
   const status = rootGetters['record/weekRecords'].reduce((acc, record) => ({
     earnings: acc.earnings + record.earnings,
     expenses: acc.expenses + record.expenses.fuel + record.expenses.others,

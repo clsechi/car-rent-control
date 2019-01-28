@@ -26,13 +26,6 @@ export default {
 
   data() {
     return {
-      form: {
-        distance: null,
-        expenses: {
-          fuel: null,
-          others: null,
-        },
-      },
       loading: false,
     };
   },
